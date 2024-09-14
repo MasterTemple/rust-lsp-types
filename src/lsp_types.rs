@@ -86,50 +86,50 @@ pub type LSPArray = Vec<LSPAny>;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Message {
-    jsonrpc: String,
+    pub jsonrpc: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct RequestMessage {
     /// extends Message
-    jsonrpc: String,
+    pub jsonrpc: String,
 
     /**
      * The request id.
      */
-    id: IntegerOrString,
+    pub id: IntegerOrString,
 
     /**
      * The method to be invoked.
      */
-    method: String,
+    pub method: String,
 
     /**
      * The method's params.
      */
     // params: Option<array> | object,
-    params: Option<ArrayOrObject>,
+    pub params: Option<ArrayOrObject>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ResponseMessage {
     /// extends Message
-    jsonrpc: String,
+    pub jsonrpc: String,
     /**
      * The request id.
      */
-    id: Option<IntegerOrString>,
+    pub id: Option<IntegerOrString>,
 
     /**
      * The result of a request. This member is REQUIRED on success.
      * This member MUST NOT exist if there was an error invoking the method.
      */
-    result: Option<LSPAny>,
+    pub result: Option<LSPAny>,
 
     /**
      * The error object in case a request fails.
      */
-    error: Option<ResponseError>,
+    pub error: Option<ResponseError>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -137,18 +137,18 @@ pub struct ResponseError {
     /**
      * A number indicating the error type that occurred.
      */
-    code: Integer,
+    pub code: Integer,
 
     /**
      * A String providing a short description of the error.
      */
-    message: String,
+    pub message: String,
 
     /**
      * A primitive or structured value that contains additional
      * information about the error. Can be omitted.
      */
-    data: Option<LSPAny>,
+    pub data: Option<LSPAny>,
 }
 
 pub mod ErrorCodes {
@@ -246,16 +246,16 @@ pub mod ErrorCodes {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct NotificationMessage {
     /// extends Message
-    jsonrpc: String,
+    pub jsonrpc: String,
     /**
      * The method to be invoked.
      */
-    method: String,
+    pub method: String,
 
     /**
      * The notification's params.
      */
-    params: Option<ArrayOrObject>,
+    pub params: Option<ArrayOrObject>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -263,7 +263,7 @@ pub struct CancelParams {
     /**
      * The request id to cancel.
      */
-    id: IntegerOrString,
+    pub id: IntegerOrString,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -277,32 +277,32 @@ pub struct ProgressParams<T> {
     /**
      * The progress token provided by the client or server.
      */
-    token: ProgressToken,
+    pub token: ProgressToken,
 
     /**
      * The progress data.
      */
-    value: T,
+    pub value: T,
 }
 
 /// extracted out for [HoverParams1::position]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct HoverParamsPosition {
-    line: UInteger,
-    character: UInteger,
+    pub line: UInteger,
+    pub character: UInteger,
 }
 
 /// there are 2 HoverParams
 #[derive(Serialize, Deserialize, Debug)]
 pub struct HoverParams1 {
     /** The text document's URI in String form */
-    textDocument: String,
-    position: HoverParamsPosition,
+    pub textDocument: String,
+    pub position: HoverParamsPosition,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct HoverResult {
-    value: String,
+    pub value: String,
 }
 
 /// ```
@@ -331,12 +331,12 @@ pub struct RegularExpressionsClientCapabilities {
     /**
      * The engine's name.
      */
-    engine: String,
+    pub engine: String,
 
     /**
      * The engine's version.
      */
-    version: Option<String>,
+    pub version: Option<String>,
 }
 
 /// const EOL: String[] = ['\n', '\r\n', '\r'];
@@ -359,7 +359,7 @@ pub struct Position {
     /**
      * Line position in a document (zero-based).
      */
-    line: UInteger,
+    pub line: UInteger,
 
     /**
      * Character offset on a line in a document (zero-based). The meaning of this
@@ -368,7 +368,7 @@ pub struct Position {
      * If the character value is greater than the line length it defaults back
      * to the line length.
      */
-    character: UInteger,
+    pub character: UInteger,
 }
 
 /**
@@ -412,7 +412,7 @@ pub enum PositionEncodingKind {
 }
 
 ///  {
-///      start: { line: 5, character: 23 },
+///      pub start: { line: 5, character: 23 },
 ///      end : { line: 6, character: 0 }
 ///  }
 #[derive(Serialize, Deserialize, Debug)]
@@ -420,12 +420,12 @@ pub struct Range {
     /**
      * The range's start position.
      */
-    start: Position,
+    pub start: Position,
 
     /**
      * The range's end position.
      */
-    end: Position,
+    pub end: Position,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -433,23 +433,23 @@ pub struct TextDocumentItem {
     /**
      * The text document's URI.
      */
-    uri: DocumentUri,
+    pub uri: DocumentUri,
 
     /**
      * The text document's language identifier.
      */
-    languageId: String,
+    pub languageId: String,
 
     /**
      * The version number of this document (it will increase after each
      * change, including undo/redo).
      */
-    version: Integer,
+    pub version: Integer,
 
     /**
      * The content of the opened text document.
      */
-    text: String,
+    pub text: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -457,7 +457,7 @@ pub struct TextDocumentIdentifier {
     /**
      * The text document's URI.
      */
-    uri: DocumentUri,
+    pub uri: DocumentUri,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -466,14 +466,14 @@ pub struct VersionedTextDocumentIdentifier {
     /**
      * The text document's URI.
      */
-    uri: DocumentUri,
+    pub uri: DocumentUri,
     /**
      * The version number of this document.
      *
      * The version number of a document will increase after each change,
      * including undo/redo. The number doesn't need to be consecutive.
      */
-    version: Integer,
+    pub version: Integer,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -482,7 +482,7 @@ pub struct OptionalVersionedTextDocumentIdentifier {
     /**
      * The text document's URI.
      */
-    uri: DocumentUri,
+    pub uri: DocumentUri,
     /**
      * The version number of this document. If an optional versioned text document
      * identifier is sent from the server to the client and the file is not
@@ -494,7 +494,7 @@ pub struct OptionalVersionedTextDocumentIdentifier {
      * The version number of a document will increase after each change,
      * including undo/redo. The number doesn't need to be consecutive.
      */
-    version: Option<Integer>,
+    pub version: Option<Integer>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -502,12 +502,12 @@ pub struct TextDocumentPositionParams {
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /**
      * The position inside the text document.
      */
-    position: Position,
+    pub position: Position,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -515,12 +515,12 @@ pub struct DocumentFilter {
     /**
      * A language id, like `typescript`.
      */
-    language: Option<String>,
+    pub language: Option<String>,
 
     /**
      * A Uri scheme, like `file` or `untitled`.
      */
-    scheme: Option<String>,
+    pub scheme: Option<String>,
 
     /**
      * A glob pattern, like `*.{ts,js}`.
@@ -536,7 +536,7 @@ pub struct DocumentFilter {
      *   (e.g., `example.[!0-9]` to match on `example.a`, `example.b`, but
      *   not `example.0`)
      */
-    pattern: Option<String>,
+    pub pattern: Option<String>,
 }
 
 pub type DocumentSelector = Vec<DocumentFilter>;
@@ -547,13 +547,13 @@ pub struct TextEdit {
      * The range of the text document to be manipulated. To insert
      * text into a document create a range where start === end.
      */
-    range: Range,
+    pub range: Range,
 
     /**
      * The String to be inserted. For delete operations use an
      * empty String.
      */
-    newText: String,
+    pub newText: String,
 }
 
 /**
@@ -567,19 +567,19 @@ pub struct ChangeAnnotation {
      * A human-readable String describing the actual change. The String
      * is rendered prominent in the user interface.
      */
-    label: String,
+    pub label: String,
 
     /**
      * A flag which indicates that user confirmation is needed
      * before applying the change.
      */
-    needsConfirmation: Option<Boolean>,
+    pub needsConfirmation: Option<Boolean>,
 
     /**
      * A human-readable String which is rendered less prominent in
      * the user interface.
      */
-    description: Option<String>,
+    pub description: Option<String>,
 }
 
 /**
@@ -602,19 +602,19 @@ pub struct AnnotatedTextEdit {
      * The range of the text document to be manipulated. To insert
      * text into a document create a range where start === end.
      */
-    range: Range,
+    pub range: Range,
 
     /// extends TextEdit
     /**
      * The String to be inserted. For delete operations use an
      * empty String.
      */
-    newText: String,
+    pub newText: String,
 
     /**
      * The actual annotation identifier.
      */
-    annotationId: ChangeAnnotationIdentifier,
+    pub annotationId: ChangeAnnotationIdentifier,
 }
 
 /// extracted out for [TextDocumentEdit::edits]
@@ -629,7 +629,7 @@ pub struct TextDocumentEdit {
     /**
      * The text document to change.
      */
-    textDocument: OptionalVersionedTextDocumentIdentifier,
+    pub textDocument: OptionalVersionedTextDocumentIdentifier,
 
     /**
      * The edits to be applied.
@@ -637,13 +637,13 @@ pub struct TextDocumentEdit {
      * @since 3.16.0 - support for AnnotatedTextEdit. This is guarded by the
      * client capability `workspace.workspaceEdit.changeAnnotationSupport`
      */
-    edits: Vec<TextEditOrAnnotatedTextEdit>,
+    pub edits: Vec<TextEditOrAnnotatedTextEdit>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Location {
-    uri: DocumentUri,
-    range: Range,
+    pub uri: DocumentUri,
+    pub range: Range,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -654,12 +654,12 @@ pub struct LocationLink {
      * Used as the underlined span for mouse interaction. Defaults to the word
      * range at the mouse position.
      */
-    originSelectionRange: Option<Range>,
+    pub originSelectionRange: Option<Range>,
 
     /**
      * The target resource identifier of this link.
      */
-    targetUri: DocumentUri,
+    pub targetUri: DocumentUri,
 
     /**
      * The full target range of this link. If the target for example is a symbol
@@ -667,14 +667,14 @@ pub struct LocationLink {
      * leading/trailing whitespace but everything else like comments. This
      * information is typically used to highlight the range in the editor.
      */
-    targetRange: Range,
+    pub targetRange: Range,
 
     /**
      * The range that should be selected and revealed when this link is being
      * followed, e.g the name of a function. Must be contained by the
      * `targetRange`. See also `DocumentSymbol#range`
      */
-    targetSelectionRange: Range,
+    pub targetSelectionRange: Range,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -682,7 +682,7 @@ pub struct Diagnostic {
     /**
      * The range at which the message applies.
      */
-    range: Range,
+    pub range: Range,
 
     /**
      * The diagnostic's severity. To avoid interpretation mismatches when a
@@ -690,43 +690,43 @@ pub struct Diagnostic {
      * servers always provide a severity value. If omitted, it’s recommended
      * for the client to interpret it as an Error severity.
      */
-    severity: Option<DiagnosticSeverity>,
+    pub severity: Option<DiagnosticSeverity>,
 
     /**
      * The diagnostic's code, which might appear in the user interface.
      */
-    code: Option<IntegerOrString>,
+    pub code: Option<IntegerOrString>,
 
     /**
      * An optional property to describe the error code.
      *
      * @since 3.16.0
      */
-    codeDescription: Option<CodeDescription>,
+    pub codeDescription: Option<CodeDescription>,
 
     /**
      * A human-readable String describing the source of this
      * diagnostic, e.g. 'typescript' or 'super lint'.
      */
-    source: Option<String>,
+    pub source: Option<String>,
 
     /**
      * The diagnostic's message.
      */
-    message: String,
+    pub message: String,
 
     /**
      * Additional metadata about the diagnostic.
      *
      * @since 3.15.0
      */
-    tags: Option<Vec<DiagnosticTag>>,
+    pub tags: Option<Vec<DiagnosticTag>>,
 
     /**
      * An array of related diagnostic information, e.g. when symbol-names within
      * a scope collide all definitions can be marked via this property.
      */
-    relatedInformation: Option<Vec<DiagnosticRelatedInformation>>,
+    pub relatedInformation: Option<Vec<DiagnosticRelatedInformation>>,
 
     /**
      * A data entry field that is preserved between a
@@ -735,7 +735,7 @@ pub struct Diagnostic {
      *
      * @since 3.16.0
      */
-    data: Option<LSPAny>,
+    pub data: Option<LSPAny>,
 }
 
 #[derive(Serialize_repr, Deserialize_repr, Debug)]
@@ -791,12 +791,12 @@ pub struct DiagnosticRelatedInformation {
     /**
      * The location of this related diagnostic information.
      */
-    location: Location,
+    pub location: Location,
 
     /**
      * The message of this related diagnostic information.
      */
-    message: String,
+    pub message: String,
 }
 
 /**
@@ -809,7 +809,7 @@ pub struct CodeDescription {
     /**
      * An URI to open with more information about the diagnostic error.
      */
-    href: URI,
+    pub href: URI,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -817,16 +817,16 @@ pub struct Command {
     /**
      * Title of the command, like `save`.
      */
-    title: String,
+    pub title: String,
     /**
      * The identifier of the actual command handler.
      */
-    command: String,
+    pub command: String,
     /**
      * Arguments that the command handler should be
      * invoked with.
      */
-    arguments: Option<Vec<LSPAny>>,
+    pub arguments: Option<Vec<LSPAny>>,
 }
 
 /**
@@ -863,8 +863,8 @@ pub enum MarkupKind {
  * JavaScript / TypeScript:
  * typescript
  * let markdown: MarkdownContent = {
- *     kind: MarkupKind.Markdown,
- *     value: [
+ *     pub kind: MarkupKind.Markdown,
+ *     pub value: [
  *         '# Header',
  *         'Some text',
  *         'typescript',
@@ -882,12 +882,12 @@ pub struct MarkupContent {
     /**
      * The type of the Markup
      */
-    kind: MarkupKind,
+    pub kind: MarkupKind,
 
     /**
      * The content itself
      */
-    value: String,
+    pub value: String,
 }
 
 /**
@@ -900,12 +900,12 @@ pub struct MarkdownClientCapabilities {
     /**
      * The name of the parser.
      */
-    parser: String,
+    pub parser: String,
 
     /**
      * The version of the parser.
      */
-    version: Option<String>,
+    pub version: Option<String>,
 
     /**
      * A list of HTML tags that the client allows / supports in
@@ -913,7 +913,7 @@ pub struct MarkdownClientCapabilities {
      *
      * @since 3.17.0
      */
-    allowedTags: Option<Vec<String>>,
+    pub allowedTags: Option<Vec<String>>,
 }
 
 /**
@@ -923,12 +923,12 @@ pub struct CreateFileOptions {
     /**
      * Overwrite existing file. Overwrite wins over `ignoreIfExists`
      */
-    overwrite: Option<Boolean>,
+    pub overwrite: Option<Boolean>,
 
     /**
      * Ignore if exists.
      */
-    ignoreIfExists: Option<Boolean>,
+    pub ignoreIfExists: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -942,24 +942,24 @@ pub struct CreateFile {
      * A create
      */
     /// kind: 'create',
-    kind: ResourceOperationKind,
+    pub kind: ResourceOperationKind,
 
     /**
      * The resource to create.
      */
-    uri: DocumentUri,
+    pub uri: DocumentUri,
 
     /**
      * Additional options
      */
-    options: Option<CreateFileOptions>,
+    pub options: Option<CreateFileOptions>,
 
     /**
      * An optional annotation identifier describing the operation.
      *
      * @since 3.16.0
      */
-    annotationId: Option<ChangeAnnotationIdentifier>,
+    pub annotationId: Option<ChangeAnnotationIdentifier>,
 }
 
 /**
@@ -969,12 +969,12 @@ pub struct RenameFileOptions {
     /**
      * Overwrite target if existing. Overwrite wins over `ignoreIfExists`
      */
-    overwrite: Option<Boolean>,
+    pub overwrite: Option<Boolean>,
 
     /**
      * Ignores if target exists.
      */
-    ignoreIfExists: Option<Boolean>,
+    pub ignoreIfExists: Option<Boolean>,
 }
 
 /**
@@ -985,29 +985,29 @@ pub struct RenameFile {
      * A rename
      */
     /// kind: 'rename',
-    kind: ResourceOperationKind,
+    pub kind: ResourceOperationKind,
 
     /**
      * The old (existing) location.
      */
-    oldUri: DocumentUri,
+    pub oldUri: DocumentUri,
 
     /**
      * The new location.
      */
-    newUri: DocumentUri,
+    pub newUri: DocumentUri,
 
     /**
      * Rename options.
      */
-    options: Option<RenameFileOptions>,
+    pub options: Option<RenameFileOptions>,
 
     /**
      * An optional annotation identifier describing the operation.
      *
      * @since 3.16.0
      */
-    annotationId: Option<ChangeAnnotationIdentifier>,
+    pub annotationId: Option<ChangeAnnotationIdentifier>,
 }
 
 /**
@@ -1017,12 +1017,12 @@ pub struct DeleteFileOptions {
     /**
      * Delete the content recursively if a folder is denoted.
      */
-    recursive: Option<Boolean>,
+    pub recursive: Option<Boolean>,
 
     /**
      * Ignore the operation if the file doesn't exist.
      */
-    ignoreIfNotExists: Option<Boolean>,
+    pub ignoreIfNotExists: Option<Boolean>,
 }
 
 /**
@@ -1033,24 +1033,24 @@ pub struct DeleteFile {
      * A delete
      */
     /// kind: 'delete',
-    kind: ResourceOperationKind,
+    pub kind: ResourceOperationKind,
 
     /**
      * The file to delete.
      */
-    uri: DocumentUri,
+    pub uri: DocumentUri,
 
     /**
      * Delete options.
      */
-    options: Option<DeleteFileOptions>,
+    pub options: Option<DeleteFileOptions>,
 
     /**
      * An optional annotation identifier describing the operation.
      *
      * @since 3.16.0
      */
-    annotationId: Option<ChangeAnnotationIdentifier>,
+    pub annotationId: Option<ChangeAnnotationIdentifier>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -1066,7 +1066,7 @@ pub struct WorkspaceEdit {
      * Holds changes to existing resources.
      */
     // changes?: { [uri: DocumentUri]: TextEdit[]; },
-    changes: Option<BTreeMap<DocumentUri, Vec<TextEdit>>>,
+    pub changes: Option<BTreeMap<DocumentUri, Vec<TextEdit>>>,
 
     /**
      * Depending on the client capability
@@ -1087,7 +1087,7 @@ pub struct WorkspaceEdit {
     //     TextDocumentEdit[] |
     //     (TextDocumentEdit | CreateFile | RenameFile | DeleteFile)[]
     // ),
-    documentChanges: Option<WorkspaceEditDocumentChanges>,
+    pub documentChanges: Option<WorkspaceEditDocumentChanges>,
 
     /**
      * A map of change annotations that can be referenced in
@@ -1102,7 +1102,7 @@ pub struct WorkspaceEdit {
     // changeAnnotations?: {
     //     [id: String /* ChangeAnnotationIdentifier */]: ChangeAnnotation,
     // },
-    changeAnnotations: Option<BTreeMap<ChangeAnnotationIdentifier, ChangeAnnotation>>,
+    pub changeAnnotations: Option<BTreeMap<ChangeAnnotationIdentifier, ChangeAnnotation>>,
 }
 
 /// extends from [WorkspaceEditClientCapabilities::changeAnnotationSupport]
@@ -1113,7 +1113,7 @@ pub struct WorkspaceEditClientCapabilitiesChangeAnnotationSupport {
      * for instance all edits labelled with "Changes in Strings" would
      * be a tree node.
      */
-    groupsOnLabel: Option<Boolean>,
+    pub groupsOnLabel: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -1121,7 +1121,7 @@ pub struct WorkspaceEditClientCapabilities {
     /**
      * The client supports versioned document changes in `WorkspaceEdit`s
      */
-    documentChanges: Option<Boolean>,
+    pub documentChanges: Option<Boolean>,
 
     /**
      * The resource operations the client supports. Clients should at least
@@ -1129,7 +1129,7 @@ pub struct WorkspaceEditClientCapabilities {
      *
      * @since 3.13.0
      */
-    resourceOperations: Option<Vec<ResourceOperationKind>>,
+    pub resourceOperations: Option<Vec<ResourceOperationKind>>,
 
     /**
      * The failure handling strategy of a client if applying the workspace edit
@@ -1137,7 +1137,7 @@ pub struct WorkspaceEditClientCapabilities {
      *
      * @since 3.13.0
      */
-    failureHandling: Option<FailureHandlingKind>,
+    pub failureHandling: Option<FailureHandlingKind>,
 
     /**
      * Whether the client normalizes line endings to the client specific
@@ -1147,7 +1147,7 @@ pub struct WorkspaceEditClientCapabilities {
      *
      * @since 3.16.0
      */
-    normalizesLineEndings: Option<Boolean>,
+    pub normalizesLineEndings: Option<Boolean>,
 
     /**
      * Whether the client in general supports change annotations on text edits,
@@ -1155,7 +1155,7 @@ pub struct WorkspaceEditClientCapabilities {
      *
      * @since 3.16.0
      */
-    changeAnnotationSupport: Option<WorkspaceEditClientCapabilitiesChangeAnnotationSupport>,
+    pub changeAnnotationSupport: Option<WorkspaceEditClientCapabilitiesChangeAnnotationSupport>,
 }
 
 /**
@@ -1225,7 +1225,7 @@ pub enum WorkDoneProgress {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct WorkDoneProgressBegin {
     /// kind: 'begin',
-    kind: WorkDoneProgress,
+    pub kind: WorkDoneProgress,
 
     /**
      * Mandatory title of the progress operation. Used to briefly inform about
@@ -1233,14 +1233,14 @@ pub struct WorkDoneProgressBegin {
      *
      * Examples: "Indexing" or "Linking dependencies".
      */
-    title: String,
+    pub title: String,
 
     /**
      * Controls if a cancel button should show to allow the user to cancel the
      * long running operation. Clients that don't support cancellation are
      * allowed to ignore the setting.
      */
-    cancellable: Option<Boolean>,
+    pub cancellable: Option<Boolean>,
 
     /**
      * Optional, more detailed associated progress message. Contains
@@ -1249,7 +1249,7 @@ pub struct WorkDoneProgressBegin {
      * Examples: "3/25 files", "project/src/module2", "node_modules/some_dep".
      * If unset, the previous progress message (if any) is still valid.
      */
-    message: Option<String>,
+    pub message: Option<String>,
 
     /**
      * Optional progress percentage to display (value 100 is considered 100%).
@@ -1259,13 +1259,13 @@ pub struct WorkDoneProgressBegin {
      * The value should be steadily rising. Clients are free to ignore values
      * that are not following this rule. The value range is [0, 100].
      */
-    percentage: Option<UInteger>,
+    pub percentage: Option<UInteger>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct WorkDoneProgressReport {
     /// kind: 'report',
-    kind: WorkDoneProgress,
+    pub kind: WorkDoneProgress,
 
     /**
      * Controls enablement state of a cancel button. This property is only valid
@@ -1274,7 +1274,7 @@ pub struct WorkDoneProgressReport {
      * Clients that don't support cancellation or don't support control the
      * button's enablement state are allowed to ignore the setting.
      */
-    cancellable: Option<Boolean>,
+    pub cancellable: Option<Boolean>,
 
     /**
      * Optional, more detailed associated progress message. Contains
@@ -1283,7 +1283,7 @@ pub struct WorkDoneProgressReport {
      * Examples: "3/25 files", "project/src/module2", "node_modules/some_dep".
      * If unset, the previous progress message (if any) is still valid.
      */
-    message: Option<String>,
+    pub message: Option<String>,
 
     /**
      * Optional progress percentage to display (value 100 is considered 100%).
@@ -1293,19 +1293,19 @@ pub struct WorkDoneProgressReport {
      * The value should be steadily rising. Clients are free to ignore values
      * that are not following this rule. The value range is [0, 100].
      */
-    percentage: Option<UInteger>,
+    pub percentage: Option<UInteger>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct WorkDoneProgressEnd {
     /// kind: 'end',
-    kind: WorkDoneProgress,
+    pub kind: WorkDoneProgress,
 
     /**
      * Optional, a final message indicating to for example indicate the outcome
      * of the operation.
      */
-    message: Option<String>,
+    pub message: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -1313,12 +1313,12 @@ pub struct WorkDoneProgressParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct WorkDoneProgressOptions {
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -1327,7 +1327,7 @@ pub struct PartialResultParams {
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -1346,12 +1346,12 @@ pub struct InitializeParamsClientInfo {
     /**
      * The name of the client as defined by the client.
      */
-    name: String,
+    pub name: String,
 
     /**
      * The client's version as defined by the client.
      */
-    version: Option<String>,
+    pub version: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -1360,7 +1360,7 @@ pub struct InitializeParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /**
      * The process Id of the parent process that started the server. Is null if
@@ -1368,14 +1368,14 @@ pub struct InitializeParams {
      * process is not alive then the server should exit (see exit notification)
      * its process.
      */
-    processId: Option<Integer>,
+    pub processId: Option<Integer>,
 
     /**
      * Information about the client
      *
      * @since 3.15.0
      */
-    clientInfo: Option<InitializeParamsClientInfo>,
+    pub clientInfo: Option<InitializeParamsClientInfo>,
 
     /**
      * The locale the client is currently showing the user interface
@@ -1387,7 +1387,7 @@ pub struct InitializeParams {
      *
      * @since 3.16.0
      */
-    locale: Option<String>,
+    pub locale: Option<String>,
 
     /**
      * The rootPath of the workspace. Is null
@@ -1395,7 +1395,7 @@ pub struct InitializeParams {
      *
      * @deprecated in favour of `rootUri`.
      */
-    rootPath: Option<String>,
+    pub rootPath: Option<String>,
 
     /**
      * The rootUri of the workspace. Is null if no
@@ -1404,22 +1404,22 @@ pub struct InitializeParams {
      *
      * @deprecated in favour of `workspaceFolders`
      */
-    rootUri: Option<DocumentUri>,
+    pub rootUri: Option<DocumentUri>,
 
     /**
      * User provided initialization options.
      */
-    initializationOptions: Option<LSPAny>,
+    pub initializationOptions: Option<LSPAny>,
 
     /**
      * The capabilities provided by the client (editor or tool)
      */
-    capabilities: ClientCapabilities,
+    pub capabilities: ClientCapabilities,
 
     /**
      * The initial trace setting. If omitted trace is disabled ('off').
      */
-    trace: Option<TraceValue>,
+    pub trace: Option<TraceValue>,
 
     /**
      * The workspace folders configured in the client when the server starts.
@@ -1429,7 +1429,7 @@ pub struct InitializeParams {
      *
      * @since 3.6.0
      */
-    workspaceFolders: Option<Vec<WorkspaceFolder>>,
+    pub workspaceFolders: Option<Vec<WorkspaceFolder>>,
 }
 
 /**
@@ -1437,78 +1437,78 @@ pub struct InitializeParams {
  */
 #[derive(Serialize, Deserialize, Debug)]
 pub struct TextDocumentClientCapabilities {
-    synchronization: Option<TextDocumentSyncClientCapabilities>,
+    pub synchronization: Option<TextDocumentSyncClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/completion` request.
      */
-    completion: Option<CompletionClientCapabilities>,
+    pub completion: Option<CompletionClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/hover` request.
      */
-    hover: Option<HoverClientCapabilities>,
+    pub hover: Option<HoverClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/signatureHelp` request.
      */
-    signatureHelp: Option<SignatureHelpClientCapabilities>,
+    pub signatureHelp: Option<SignatureHelpClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/declaration` request.
      *
      * @since 3.14.0
      */
-    declaration: Option<DeclarationClientCapabilities>,
+    pub declaration: Option<DeclarationClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/definition` request.
      */
-    definition: Option<DefinitionClientCapabilities>,
+    pub definition: Option<DefinitionClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/typeDefinition` request.
      *
      * @since 3.6.0
      */
-    typeDefinition: Option<TypeDefinitionClientCapabilities>,
+    pub typeDefinition: Option<TypeDefinitionClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/implementation` request.
      *
      * @since 3.6.0
      */
-    implementation: Option<ImplementationClientCapabilities>,
+    pub implementation: Option<ImplementationClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/references` request.
      */
-    references: Option<ReferenceClientCapabilities>,
+    pub references: Option<ReferenceClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/documentHighlight` request.
      */
-    documentHighlight: Option<DocumentHighlightClientCapabilities>,
+    pub documentHighlight: Option<DocumentHighlightClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/documentSymbol` request.
      */
-    documentSymbol: Option<DocumentSymbolClientCapabilities>,
+    pub documentSymbol: Option<DocumentSymbolClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/codeAction` request.
      */
-    codeAction: Option<CodeActionClientCapabilities>,
+    pub codeAction: Option<CodeActionClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/codeLens` request.
      */
-    codeLens: Option<CodeLensClientCapabilities>,
+    pub codeLens: Option<CodeLensClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/documentLink` request.
      */
-    documentLink: Option<DocumentLinkClientCapabilities>,
+    pub documentLink: Option<DocumentLinkClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/documentColor` and the
@@ -1516,103 +1516,103 @@ pub struct TextDocumentClientCapabilities {
      *
      * @since 3.6.0
      */
-    colorProvider: Option<DocumentColorClientCapabilities>,
+    pub colorProvider: Option<DocumentColorClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/formatting` request.
      */
-    formatting: Option<DocumentFormattingClientCapabilities>,
+    pub formatting: Option<DocumentFormattingClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/rangeFormatting` request.
      */
-    rangeFormatting: Option<DocumentRangeFormattingClientCapabilities>,
+    pub rangeFormatting: Option<DocumentRangeFormattingClientCapabilities>,
 
     /** request.
      * Capabilities specific to the `textDocument/onTypeFormatting` request.
      */
-    onTypeFormatting: Option<DocumentOnTypeFormattingClientCapabilities>,
+    pub onTypeFormatting: Option<DocumentOnTypeFormattingClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/rename` request.
      */
-    rename: Option<RenameClientCapabilities>,
+    pub rename: Option<RenameClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/publishDiagnostics`
      * notification.
      */
-    publishDiagnostics: Option<PublishDiagnosticsClientCapabilities>,
+    pub publishDiagnostics: Option<PublishDiagnosticsClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/foldingRange` request.
      *
      * @since 3.10.0
      */
-    foldingRange: Option<FoldingRangeClientCapabilities>,
+    pub foldingRange: Option<FoldingRangeClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/selectionRange` request.
      *
      * @since 3.15.0
      */
-    selectionRange: Option<SelectionRangeClientCapabilities>,
+    pub selectionRange: Option<SelectionRangeClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/linkedEditingRange` request.
      *
      * @since 3.16.0
      */
-    linkedEditingRange: Option<LinkedEditingRangeClientCapabilities>,
+    pub linkedEditingRange: Option<LinkedEditingRangeClientCapabilities>,
 
     /**
      * Capabilities specific to the various call hierarchy requests.
      *
      * @since 3.16.0
      */
-    callHierarchy: Option<CallHierarchyClientCapabilities>,
+    pub callHierarchy: Option<CallHierarchyClientCapabilities>,
 
     /**
      * Capabilities specific to the various semantic token requests.
      *
      * @since 3.16.0
      */
-    semanticTokens: Option<SemanticTokensClientCapabilities>,
+    pub semanticTokens: Option<SemanticTokensClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/moniker` request.
      *
      * @since 3.16.0
      */
-    moniker: Option<MonikerClientCapabilities>,
+    pub moniker: Option<MonikerClientCapabilities>,
 
     /**
      * Capabilities specific to the various type hierarchy requests.
      *
      * @since 3.17.0
      */
-    typeHierarchy: Option<TypeHierarchyClientCapabilities>,
+    pub typeHierarchy: Option<TypeHierarchyClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/inlineValue` request.
      *
      * @since 3.17.0
      */
-    inlineValue: Option<InlineValueClientCapabilities>,
+    pub inlineValue: Option<InlineValueClientCapabilities>,
 
     /**
      * Capabilities specific to the `textDocument/inlayHint` request.
      *
      * @since 3.17.0
      */
-    inlayHint: Option<InlayHintClientCapabilities>,
+    pub inlayHint: Option<InlayHintClientCapabilities>,
 
     /**
      * Capabilities specific to the diagnostic pull model.
      *
      * @since 3.17.0
      */
-    diagnostic: Option<DiagnosticClientCapabilities>,
+    pub diagnostic: Option<DiagnosticClientCapabilities>,
 }
 
 /**
@@ -1627,7 +1627,7 @@ pub struct NotebookDocumentClientCapabilities {
      *
      * @since 3.17.0
      */
-    synchronization: NotebookDocumentSyncClientCapabilities,
+    pub synchronization: NotebookDocumentSyncClientCapabilities,
 }
 
 /// extracts from [ClientCapabilitiesWorkspace::fileOperations]
@@ -1637,37 +1637,37 @@ pub struct ClientCapabilitiesWorkspaceFileOperations {
      * Whether the client supports dynamic registration for file
      * requests/notifications.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 
     /**
      * The client has support for sending didCreateFiles notifications.
      */
-    didCreate: Option<Boolean>,
+    pub didCreate: Option<Boolean>,
 
     /**
      * The client has support for sending willCreateFiles requests.
      */
-    willCreate: Option<Boolean>,
+    pub willCreate: Option<Boolean>,
 
     /**
      * The client has support for sending didRenameFiles notifications.
      */
-    didRename: Option<Boolean>,
+    pub didRename: Option<Boolean>,
 
     /**
      * The client has support for sending willRenameFiles requests.
      */
-    willRename: Option<Boolean>,
+    pub willRename: Option<Boolean>,
 
     /**
      * The client has support for sending didDeleteFiles notifications.
      */
-    didDelete: Option<Boolean>,
+    pub didDelete: Option<Boolean>,
 
     /**
      * The client has support for sending willDeleteFiles requests.
      */
-    willDelete: Option<Boolean>,
+    pub willDelete: Option<Boolean>,
 }
 
 /// extracts from [ClientCapabilities::workspace]
@@ -1678,48 +1678,48 @@ pub struct ClientCapabilitiesWorkspace {
      * to the workspace by supporting the request
      * 'workspace/applyEdit'
      */
-    applyEdit: Option<Boolean>,
+    pub applyEdit: Option<Boolean>,
 
     /**
      * Capabilities specific to `WorkspaceEdit`s
      */
-    workspaceEdit: Option<WorkspaceEditClientCapabilities>,
+    pub workspaceEdit: Option<WorkspaceEditClientCapabilities>,
 
     /**
      * Capabilities specific to the `workspace/didChangeConfiguration`
      * notification.
      */
-    didChangeConfiguration: Option<DidChangeConfigurationClientCapabilities>,
+    pub didChangeConfiguration: Option<DidChangeConfigurationClientCapabilities>,
 
     /**
      * Capabilities specific to the `workspace/didChangeWatchedFiles`
      * notification.
      */
-    didChangeWatchedFiles: Option<DidChangeWatchedFilesClientCapabilities>,
+    pub didChangeWatchedFiles: Option<DidChangeWatchedFilesClientCapabilities>,
 
     /**
      * Capabilities specific to the `workspace/symbol` request.
      */
-    symbol: Option<WorkspaceSymbolClientCapabilities>,
+    pub symbol: Option<WorkspaceSymbolClientCapabilities>,
 
     /**
      * Capabilities specific to the `workspace/executeCommand` request.
      */
-    executeCommand: Option<ExecuteCommandClientCapabilities>,
+    pub executeCommand: Option<ExecuteCommandClientCapabilities>,
 
     /**
      * The client has support for workspace folders.
      *
      * @since 3.6.0
      */
-    workspaceFolders: Option<Boolean>,
+    pub workspaceFolders: Option<Boolean>,
 
     /**
      * The client supports `workspace/configuration` requests.
      *
      * @since 3.6.0
      */
-    configuration: Option<Boolean>,
+    pub configuration: Option<Boolean>,
 
     /**
      * Capabilities specific to the semantic token requests scoped to the
@@ -1727,7 +1727,7 @@ pub struct ClientCapabilitiesWorkspace {
      *
      * @since 3.16.0
      */
-    semanticTokens: Option<SemanticTokensWorkspaceClientCapabilities>,
+    pub semanticTokens: Option<SemanticTokensWorkspaceClientCapabilities>,
 
     /**
      * Capabilities specific to the code lens requests scoped to the
@@ -1735,35 +1735,35 @@ pub struct ClientCapabilitiesWorkspace {
      *
      * @since 3.16.0
      */
-    codeLens: Option<CodeLensWorkspaceClientCapabilities>,
+    pub codeLens: Option<CodeLensWorkspaceClientCapabilities>,
 
     /**
      * The client has support for file requests/notifications.
      *
      * @since 3.16.0
      */
-    fileOperations: Option<ClientCapabilitiesWorkspaceFileOperations>,
+    pub fileOperations: Option<ClientCapabilitiesWorkspaceFileOperations>,
 
     /**
      * Client workspace capabilities specific to inline values.
      *
      * @since 3.17.0
      */
-    inlineValue: Option<InlineValueWorkspaceClientCapabilities>,
+    pub inlineValue: Option<InlineValueWorkspaceClientCapabilities>,
 
     /**
      * Client workspace capabilities specific to inlay hints.
      *
      * @since 3.17.0
      */
-    inlayHint: Option<InlayHintWorkspaceClientCapabilities>,
+    pub inlayHint: Option<InlayHintWorkspaceClientCapabilities>,
 
     /**
      * Client workspace capabilities specific to diagnostics.
      *
      * @since 3.17.0.
      */
-    diagnostics: Option<DiagnosticWorkspaceClientCapabilities>,
+    pub diagnostics: Option<DiagnosticWorkspaceClientCapabilities>,
 }
 
 /// extracted from [ClientCapabilities::window]
@@ -1780,21 +1780,21 @@ pub struct ClientCapabilitiesWindow {
      *
      * @since 3.15.0
      */
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /**
      * Capabilities specific to the showMessage request
      *
      * @since 3.16.0
      */
-    showMessage: Option<ShowMessageRequestClientCapabilities>,
+    pub showMessage: Option<ShowMessageRequestClientCapabilities>,
 
     /**
      * Client capabilities for the show document request.
      *
      * @since 3.16.0
      */
-    showDocument: Option<ShowDocumentClientCapabilities>,
+    pub showDocument: Option<ShowDocumentClientCapabilities>,
 }
 
 /// extends from [ClientCapabilities::general]
@@ -1803,14 +1803,14 @@ pub struct StaleRequestSupport {
     /**
      * The client will actively cancel the request.
      */
-    cancel: Boolean,
+    pub cancel: Boolean,
 
     /**
      * The list of requests for which the client
      * will retry the request if it receives a
      * response with error code `ContentModified``
      */
-    retryOnContentModified: Vec<String>,
+    pub retryOnContentModified: Vec<String>,
 }
 
 /// extends from [ClientCapabilities::general]
@@ -1824,21 +1824,21 @@ pub struct ClientCapabilitiesGeneral {
      *
      * @since 3.17.0
      */
-    staleRequestSupport: Option<StaleRequestSupport>,
+    pub staleRequestSupport: Option<StaleRequestSupport>,
 
     /**
      * Client capabilities specific to regular expressions.
      *
      * @since 3.16.0
      */
-    regularExpressions: Option<RegularExpressionsClientCapabilities>,
+    pub regularExpressions: Option<RegularExpressionsClientCapabilities>,
 
     /**
      * Client capabilities specific to the client's markdown parser.
      *
      * @since 3.16.0
      */
-    markdown: Option<MarkdownClientCapabilities>,
+    pub markdown: Option<MarkdownClientCapabilities>,
 
     /**
      * The position encodings supported by the client. Client and server
@@ -1860,7 +1860,7 @@ pub struct ClientCapabilitiesGeneral {
      *
      * @since 3.17.0
      */
-    positionEncodings: Option<Vec<PositionEncodingKind>>,
+    pub positionEncodings: Option<Vec<PositionEncodingKind>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -1868,36 +1868,36 @@ pub struct ClientCapabilities {
     /**
      * Workspace specific client capabilities.
      */
-    workspace: Option<ClientCapabilitiesWorkspace>,
+    pub workspace: Option<ClientCapabilitiesWorkspace>,
 
     /**
      * Text document specific client capabilities.
      */
-    textDocument: Option<TextDocumentClientCapabilities>,
+    pub textDocument: Option<TextDocumentClientCapabilities>,
 
     /**
      * Capabilities specific to the notebook document support.
      *
      * @since 3.17.0
      */
-    notebookDocument: Option<NotebookDocumentClientCapabilities>,
+    pub notebookDocument: Option<NotebookDocumentClientCapabilities>,
 
     /**
      * Window specific client capabilities.
      */
-    window: Option<ClientCapabilitiesWindow>,
+    pub window: Option<ClientCapabilitiesWindow>,
 
     /**
      * General client capabilities.
      *
      * @since 3.16.0
      */
-    general: Option<ClientCapabilitiesGeneral>,
+    pub general: Option<ClientCapabilitiesGeneral>,
 
     /**
      * Experimental client capabilities.
      */
-    experimental: Option<LSPAny>,
+    pub experimental: Option<LSPAny>,
 }
 
 /// extracted from [InitializeResult::ServerInfo]
@@ -1906,12 +1906,12 @@ pub struct ServerInfo {
     /**
      * The name of the server as defined by the server.
      */
-    name: String,
+    pub name: String,
 
     /**
      * The server's version as defined by the server.
      */
-    version: Option<String>,
+    pub version: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -1919,14 +1919,14 @@ pub struct InitializeResult {
     /**
      * The capabilities the language server provides.
      */
-    capabilities: ServerCapabilities,
+    pub capabilities: ServerCapabilities,
 
     /**
      * Information about the server.
      *
      * @since 3.15.0
      */
-    serverInfo: Option<ServerInfo>,
+    pub serverInfo: Option<ServerInfo>,
 }
 
 /**
@@ -1953,7 +1953,7 @@ pub struct InitializeError {
      * (2) user selects retry or cancel
      * (3) if user selected retry the initialize method is sent again.
      */
-    retry: Boolean,
+    pub retry: Boolean,
 }
 
 pub mod ServerCapabilitiesProviders {
@@ -2181,35 +2181,35 @@ pub struct ServerCapabilitiesWorkspaceFileOperations {
      * The server is interested in receiving didCreateFiles
      * notifications.
      */
-    didCreate: Option<FileOperationRegistrationOptions>,
+    pub didCreate: Option<FileOperationRegistrationOptions>,
 
     /**
      * The server is interested in receiving willCreateFiles requests.
      */
-    willCreate: Option<FileOperationRegistrationOptions>,
+    pub willCreate: Option<FileOperationRegistrationOptions>,
 
     /**
      * The server is interested in receiving didRenameFiles
      * notifications.
      */
-    didRename: Option<FileOperationRegistrationOptions>,
+    pub didRename: Option<FileOperationRegistrationOptions>,
 
     /**
      * The server is interested in receiving willRenameFiles requests.
      */
-    willRename: Option<FileOperationRegistrationOptions>,
+    pub willRename: Option<FileOperationRegistrationOptions>,
 
     /**
      * The server is interested in receiving didDeleteFiles file
      * notifications.
      */
-    didDelete: Option<FileOperationRegistrationOptions>,
+    pub didDelete: Option<FileOperationRegistrationOptions>,
 
     /**
      * The server is interested in receiving willDeleteFiles file
      * requests.
      */
-    willDelete: Option<FileOperationRegistrationOptions>,
+    pub willDelete: Option<FileOperationRegistrationOptions>,
 }
 
 /// extracted from [ServerCapabilities::workspace]
@@ -2220,14 +2220,14 @@ pub struct ServerCapabilitiesWorkspace {
      *
      * @since 3.6.0
      */
-    workspaceFolders: Option<WorkspaceFoldersServerCapabilities>,
+    pub workspaceFolders: Option<WorkspaceFoldersServerCapabilities>,
 
     /**
      * The server is interested in file notifications/requests.
      *
      * @since 3.16.0
      */
-    fileOperations: Option<ServerCapabilitiesWorkspaceFileOperations>,
+    pub fileOperations: Option<ServerCapabilitiesWorkspaceFileOperations>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -2243,7 +2243,7 @@ pub struct ServerCapabilities {
      *
      * @since 3.17.0
      */
-    positionEncoding: Option<PositionEncodingKind>,
+    pub positionEncoding: Option<PositionEncodingKind>,
 
     /**
      * Defines how text documents are synced. Is either a detailed structure
@@ -2251,207 +2251,207 @@ pub struct ServerCapabilities {
      * TextDocumentSyncKind number. If omitted it defaults to
      * `TextDocumentSyncKind.None`.
      */
-    textDocumentSync: Option<ServerCapabilitiesProviders::TextDocumentSync>,
+    pub textDocumentSync: Option<ServerCapabilitiesProviders::TextDocumentSync>,
 
     /**
      * Defines how notebook documents are synced.
      *
      * @since 3.17.0
      */
-    notebookDocumentSync: Option<ServerCapabilitiesProviders::NotebookDocumentSync>,
+    pub notebookDocumentSync: Option<ServerCapabilitiesProviders::NotebookDocumentSync>,
 
     /**
      * The server provides completion support.
      */
-    completionProvider: Option<CompletionOptions>,
+    pub completionProvider: Option<CompletionOptions>,
 
     /**
      * The server provides hover support.
      */
-    hoverProvider: Option<ServerCapabilitiesProviders::HoverProvider>,
+    pub hoverProvider: Option<ServerCapabilitiesProviders::HoverProvider>,
 
     /**
      * The server provides signature help support.
      */
-    signatureHelpProvider: Option<SignatureHelpOptions>,
+    pub signatureHelpProvider: Option<SignatureHelpOptions>,
 
     /**
      * The server provides go to declaration support.
      *
      * @since 3.14.0
      */
-    declarationProvider: Option<ServerCapabilitiesProviders::DeclarationProvider>,
+    pub declarationProvider: Option<ServerCapabilitiesProviders::DeclarationProvider>,
 
     /**
      * The server provides goto definition support.
      */
-    definitionProvider: Option<ServerCapabilitiesProviders::DefinitionProvider>,
+    pub definitionProvider: Option<ServerCapabilitiesProviders::DefinitionProvider>,
 
     /**
      * The server provides goto type definition support.
      *
      * @since 3.6.0
      */
-    typeDefinitionProvider: Option<ServerCapabilitiesProviders::TypeDefinitionProvider>,
+    pub typeDefinitionProvider: Option<ServerCapabilitiesProviders::TypeDefinitionProvider>,
 
     /**
      * The server provides goto implementation support.
      *
      * @since 3.6.0
      */
-    implementationProvider: Option<ServerCapabilitiesProviders::ImplementationProvider>,
+    pub implementationProvider: Option<ServerCapabilitiesProviders::ImplementationProvider>,
 
     /**
      * The server provides find references support.
      */
-    referencesProvider: Option<ServerCapabilitiesProviders::ReferencesProvider>,
+    pub referencesProvider: Option<ServerCapabilitiesProviders::ReferencesProvider>,
 
     /**
      * The server provides document highlight support.
      */
-    documentHighlightProvider: Option<ServerCapabilitiesProviders::DocumentHighlightProvider>,
+    pub documentHighlightProvider: Option<ServerCapabilitiesProviders::DocumentHighlightProvider>,
 
     /**
      * The server provides document symbol support.
      */
-    documentSymbolProvider: Option<ServerCapabilitiesProviders::DocumentSymbolProvider>,
+    pub documentSymbolProvider: Option<ServerCapabilitiesProviders::DocumentSymbolProvider>,
 
     /**
      * The server provides code actions. The `CodeActionOptions` return type is
      * only valid if the client signals code action literal support via the
      * property `textDocument.codeAction.codeActionLiteralSupport`.
      */
-    codeActionProvider: Option<ServerCapabilitiesProviders::CodeActionProvider>,
+    pub codeActionProvider: Option<ServerCapabilitiesProviders::CodeActionProvider>,
 
     /**
      * The server provides code lens.
      */
-    codeLensProvider: Option<CodeLensOptions>,
+    pub codeLensProvider: Option<CodeLensOptions>,
 
     /**
      * The server provides document link support.
      */
-    documentLinkProvider: Option<DocumentLinkOptions>,
+    pub documentLinkProvider: Option<DocumentLinkOptions>,
 
     /**
      * The server provides color provider support.
      *
      * @since 3.6.0
      */
-    colorProvider: Option<ServerCapabilitiesProviders::ColorProvider>,
+    pub colorProvider: Option<ServerCapabilitiesProviders::ColorProvider>,
 
     /**
      * The server provides document formatting.
      */
-    documentFormattingProvider: Option<ServerCapabilitiesProviders::DocumentFormattingProvider>,
+    pub documentFormattingProvider: Option<ServerCapabilitiesProviders::DocumentFormattingProvider>,
 
     /**
      * The server provides document range formatting.
      */
-    documentRangeFormattingProvider:
+    pub documentRangeFormattingProvider:
         Option<ServerCapabilitiesProviders::DocumentFormattingProvider>,
 
     /**
      * The server provides document formatting on typing.
      */
-    documentOnTypeFormattingProvider: Option<DocumentOnTypeFormattingOptions>,
+    pub documentOnTypeFormattingProvider: Option<DocumentOnTypeFormattingOptions>,
 
     /**
      * The server provides rename support. RenameOptions may only be
      * specified if the client states that it supports
      * `prepareSupport` in its initial `initialize` request.
      */
-    renameProvider: Option<ServerCapabilitiesProviders::RenameProvider>,
+    pub renameProvider: Option<ServerCapabilitiesProviders::RenameProvider>,
 
     /**
      * The server provides folding provider support.
      *
      * @since 3.10.0
      */
-    foldingRangeProvider: Option<ServerCapabilitiesProviders::FoldingRangeProvider>,
+    pub foldingRangeProvider: Option<ServerCapabilitiesProviders::FoldingRangeProvider>,
 
     /**
      * The server provides execute command support.
      */
-    executeCommandProvider: Option<ExecuteCommandOptions>,
+    pub executeCommandProvider: Option<ExecuteCommandOptions>,
 
     /**
      * The server provides selection range support.
      *
      * @since 3.15.0
      */
-    selectionRangeProvider: Option<ServerCapabilitiesProviders::SelectionRangeProvider>,
+    pub selectionRangeProvider: Option<ServerCapabilitiesProviders::SelectionRangeProvider>,
 
     /**
      * The server provides linked editing range support.
      *
      * @since 3.16.0
      */
-    linkedEditingRangeProvider: Option<ServerCapabilitiesProviders::LinkedEditingRangeProvider>,
+    pub linkedEditingRangeProvider: Option<ServerCapabilitiesProviders::LinkedEditingRangeProvider>,
 
     /**
      * The server provides call hierarchy support.
      *
      * @since 3.16.0
      */
-    callHierarchyProvider: Option<ServerCapabilitiesProviders::CallHierarchyProvider>,
+    pub callHierarchyProvider: Option<ServerCapabilitiesProviders::CallHierarchyProvider>,
 
     /**
      * The server provides semantic tokens support.
      *
      * @since 3.16.0
      */
-    semanticTokensProvider: Option<ServerCapabilitiesProviders::SemanticTokensProvider>,
+    pub semanticTokensProvider: Option<ServerCapabilitiesProviders::SemanticTokensProvider>,
 
     /**
      * Whether server provides moniker support.
      *
      * @since 3.16.0
      */
-    monikerProvider: Option<ServerCapabilitiesProviders::MonikerProvider>,
+    pub monikerProvider: Option<ServerCapabilitiesProviders::MonikerProvider>,
 
     /**
      * The server provides type hierarchy support.
      *
      * @since 3.17.0
      */
-    typeHierarchyProvider: Option<ServerCapabilitiesProviders::TypeHierarchyProvider>,
+    pub typeHierarchyProvider: Option<ServerCapabilitiesProviders::TypeHierarchyProvider>,
 
     /**
      * The server provides inline values.
      *
      * @since 3.17.0
      */
-    inlineValueProvider: Option<ServerCapabilitiesProviders::InlineValueProvider>,
+    pub inlineValueProvider: Option<ServerCapabilitiesProviders::InlineValueProvider>,
 
     /**
      * The server provides inlay hints.
      *
      * @since 3.17.0
      */
-    inlayHintProvider: Option<ServerCapabilitiesProviders::InlayHintProvider>,
+    pub inlayHintProvider: Option<ServerCapabilitiesProviders::InlayHintProvider>,
 
     /**
      * The server has support for pull model diagnostics.
      *
      * @since 3.17.0
      */
-    diagnosticProvider: Option<ServerCapabilitiesProviders::DiagnosticProvider>,
+    pub diagnosticProvider: Option<ServerCapabilitiesProviders::DiagnosticProvider>,
 
     /**
      * The server provides workspace symbol support.
      */
-    workspaceSymbolProvider: Option<ServerCapabilitiesProviders::WorkspaceSymbolProvider>,
+    pub workspaceSymbolProvider: Option<ServerCapabilitiesProviders::WorkspaceSymbolProvider>,
 
     /**
      * Workspace specific server capabilities
      */
-    workspace: Option<ServerCapabilitiesWorkspace>,
+    pub workspace: Option<ServerCapabilitiesWorkspace>,
 
     /**
      * Experimental server capabilities.
      */
-    experimental: Option<LSPAny>,
+    pub experimental: Option<LSPAny>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -2466,22 +2466,22 @@ pub struct Registration {
      * The id used to register the request. The id can be used to deregister
      * the request again.
      */
-    id: String,
+    pub id: String,
 
     /**
      * The method / capability to register for.
      */
-    method: String,
+    pub method: String,
 
     /**
      * Options necessary for the registration.
      */
-    registerOptions: Option<LSPAny>,
+    pub registerOptions: Option<LSPAny>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct RegistrationParams {
-    registrations: Vec<Registration>,
+    pub registrations: Vec<Registration>,
 }
 
 /**
@@ -2493,7 +2493,7 @@ pub struct StaticRegistrationOptions {
      * The id used to register the request. The id can be used to deregister
      * the request again. See also Registration#id.
      */
-    id: Option<String>,
+    pub id: Option<String>,
 }
 
 /**
@@ -2505,7 +2505,7 @@ pub struct TextDocumentRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 }
 
 /**
@@ -2517,12 +2517,12 @@ pub struct Unregistration {
      * The id used to unregister the request or notification. Usually an id
      * provided during the register request.
      */
-    id: String,
+    pub id: String,
 
     /**
      * The method / capability to unregister for.
      */
-    method: String,
+    pub method: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -2530,7 +2530,7 @@ pub struct UnregistrationParams {
     /// This should correctly be named `unregistrations`. However changing this
     /// is a breaking change and needs to wait until we deliver a 4.x version
     /// of the specification.
-    unregisterations: Vec<Unregistration>,
+    pub unregisterations: Vec<Unregistration>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -2538,7 +2538,7 @@ pub struct SetTraceParams {
     /**
      * The new value that should be assigned to the trace setting.
      */
-    value: TraceValue,
+    pub value: TraceValue,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -2546,12 +2546,12 @@ pub struct LogTraceParams {
     /**
      * The message to be logged.
      */
-    message: String,
+    pub message: String,
     /**
      * Additional information that can be computed if the `trace` configuration
      * is set to `'verbose'`
      */
-    verbose: Option<String>,
+    pub verbose: Option<String>,
 }
 
 /**
@@ -2585,7 +2585,7 @@ pub struct DidOpenTextDocumentParams {
     /**
      * The document that was opened.
      */
-    textDocument: TextDocumentItem,
+    pub textDocument: TextDocumentItem,
 }
 
 /**
@@ -2598,12 +2598,12 @@ pub struct TextDocumentChangeRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
     /**
      * How documents are synced to the server. See TextDocumentSyncKind.Full
      * and TextDocumentSyncKind.Incremental.
      */
-    syncKind: TextDocumentSyncKind,
+    pub syncKind: TextDocumentSyncKind,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -2613,7 +2613,7 @@ pub struct DidChangeTextDocumentParams {
      * to the version after all provided content changes have
      * been applied.
      */
-    textDocument: VersionedTextDocumentIdentifier,
+    pub textDocument: VersionedTextDocumentIdentifier,
 
     /**
      * The actual content changes. The content changes describe single state
@@ -2630,7 +2630,7 @@ pub struct DidChangeTextDocumentParams {
      * - apply the `TextDocumentContentChangeEvent`s in a single notification
      *   in the order you receive them.
      */
-    contentChanges: Vec<TextDocumentContentChangeEvent>,
+    pub contentChanges: Vec<TextDocumentContentChangeEvent>,
 }
 
 /// extends from [TextDocumentContentChangeEvent]
@@ -2639,19 +2639,19 @@ pub struct TextDocumentContentChangeEventWithRange {
     /**
      * The range of the document that changed.
      */
-    range: Range,
+    pub range: Range,
 
     /**
      * The optional length of the range that got replaced.
      *
      * @deprecated use range instead.
      */
-    rangeLength: Option<UInteger>,
+    pub rangeLength: Option<UInteger>,
 
     /**
      * The new text for the provided range.
      */
-    text: String,
+    pub text: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -2659,7 +2659,7 @@ pub struct TextDocumentContentChangeEventWithoutRange {
     /**
      * The new text of the whole document.
      */
-    text: String,
+    pub text: String,
 }
 
 /**
@@ -2681,12 +2681,12 @@ pub struct WillSaveTextDocumentParams {
     /**
      * The document that will be saved.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /**
      * The 'TextDocumentSaveReason'.
      */
-    reason: TextDocumentSaveReason,
+    pub reason: TextDocumentSaveReason,
 }
 
 /**
@@ -2717,7 +2717,7 @@ pub struct SaveOptions {
     /**
      * The client is supposed to include the content on save.
      */
-    includeText: Option<Boolean>,
+    pub includeText: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -2727,12 +2727,12 @@ pub struct TextDocumentSaveRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /**
      * The client is supposed to include the content on save.
      */
-    includeText: Option<Boolean>,
+    pub includeText: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -2740,13 +2740,13 @@ pub struct DidSaveTextDocumentParams {
     /**
      * The document that was saved.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /**
      * Optional the content when saved. Depends on the includeText value
      * when the save notification was requested.
      */
-    text: Option<String>,
+    pub text: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -2754,7 +2754,7 @@ pub struct DidCloseTextDocumentParams {
     /**
      * The document that was closed.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -2762,24 +2762,24 @@ pub struct TextDocumentSyncClientCapabilities {
     /**
      * Whether text document synchronization supports dynamic registration.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 
     /**
      * The client supports sending will save notifications.
      */
-    willSave: Option<Boolean>,
+    pub willSave: Option<Boolean>,
 
     /**
      * The client supports sending a will save request and
      * waits for a response providing text edits which will
      * be applied to the document before it is saved.
      */
-    willSaveWaitUntil: Option<Boolean>,
+    pub willSaveWaitUntil: Option<Boolean>,
 
     /**
      * The client supports did save notifications.
      */
-    didSave: Option<Boolean>,
+    pub didSave: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -2794,29 +2794,29 @@ pub struct TextDocumentSyncOptions {
      * Open and close notifications are sent to the server. If omitted open
      * close notification should not be sent.
      */
-    openClose: Option<Boolean>,
+    pub openClose: Option<Boolean>,
     /**
      * Change notifications are sent to the server. See
      * TextDocumentSyncKind.None, TextDocumentSyncKind.Full and
      * TextDocumentSyncKind.Incremental. If omitted it defaults to
      * TextDocumentSyncKind.None.
      */
-    change: Option<TextDocumentSyncKind>,
+    pub change: Option<TextDocumentSyncKind>,
     /**
      * If present will save notifications are sent to the server. If omitted
      * the notification should not be sent.
      */
-    willSave: Option<Boolean>,
+    pub willSave: Option<Boolean>,
     /**
      * If present will save wait until requests are sent to the server. If
      * omitted the request should not be sent.
      */
-    willSaveWaitUntil: Option<Boolean>,
+    pub willSaveWaitUntil: Option<Boolean>,
     /**
      * If present save notifications are sent to the server. If omitted the
      * notification should not be sent.
      */
-    save: Option<BooleanOrSaveOptions>,
+    pub save: Option<BooleanOrSaveOptions>,
 }
 
 /**
@@ -2829,29 +2829,29 @@ pub struct NotebookDocument {
     /**
      * The notebook document's URI.
      */
-    uri: URI,
+    pub uri: URI,
 
     /**
      * The type of the notebook.
      */
-    notebookType: String,
+    pub notebookType: String,
 
     /**
      * The version number of this document (it will increase after each
      * change, including undo/redo).
      */
-    version: Integer,
+    pub version: Integer,
 
     /**
      * Additional metadata stored with the notebook
      * document.
      */
-    metadata: Option<LSPObject>,
+    pub metadata: Option<LSPObject>,
 
     /**
      * The cells of a notebook.
      */
-    cells: Vec<NotebookCell>,
+    pub cells: Vec<NotebookCell>,
 }
 
 /**
@@ -2868,24 +2868,24 @@ pub struct NotebookCell {
     /**
      * The cell's kind
      */
-    kind: NotebookCellKind,
+    pub kind: NotebookCellKind,
 
     /**
      * The URI of the cell's text document
      * content.
      */
-    document: DocumentUri,
+    pub document: DocumentUri,
 
     /**
      * Additional metadata stored with the cell.
      */
-    metadata: Option<LSPObject>,
+    pub metadata: Option<LSPObject>,
 
     /**
      * Additional execution summary information
      * if supported by the client.
      */
-    executionSummary: Option<ExecutionSummary>,
+    pub executionSummary: Option<ExecutionSummary>,
 }
 
 /**
@@ -2914,13 +2914,13 @@ pub struct ExecutionSummary {
      * indicating the execution order of a cell
      * inside a notebook.
      */
-    executionOrder: UInteger,
+    pub executionOrder: UInteger,
 
     /**
      * Whether the execution was successful or
      * not if known by the client.
      */
-    success: Option<Boolean>,
+    pub success: Option<Boolean>,
 }
 
 /// String | NotebookDocumentFilter
@@ -2944,7 +2944,7 @@ pub struct NotebookCellTextDocumentFilter {
      * value is provided it matches against the
      * notebook type. '*' matches every notebook.
      */
-    notebook: StringOrNotebookDocumentFilter,
+    pub notebook: StringOrNotebookDocumentFilter,
 
     /**
      * A language id like `python`.
@@ -2952,7 +2952,7 @@ pub struct NotebookCellTextDocumentFilter {
      * Will be matched against the language id of the
      * notebook cell document. '*' matches every language.
      */
-    language: Option<String>,
+    pub language: Option<String>,
 }
 
 /**
@@ -2965,13 +2965,13 @@ pub struct NotebookCellTextDocumentFilter {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct NotebookDocumentFilter {
     /** The type of the enclosing notebook. */
-    notebookType: Option<String>,
+    pub notebookType: Option<String>,
 
     /** A Uri scheme, like `file` or `untitled`. */
-    scheme: Option<String>,
+    pub scheme: Option<String>,
 
     /** A glob pattern. */
-    pattern: Option<String>,
+    pub pattern: Option<String>,
 }
 
 /**
@@ -2987,18 +2987,18 @@ pub struct NotebookDocumentSyncClientCapabilities {
      * `(NotebookDocumentSyncRegistrationOptions & NotebookDocumentSyncOptions)`
      * return value for the corresponding server capability as well.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 
     /**
      * The client supports sending execution summary data per cell.
      */
-    executionSummarySupport: Option<Boolean>,
+    pub executionSummarySupport: Option<Boolean>,
 }
 
 /// extracted from [NotebookDocumentSyncOptions::notebookSelector]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct NotebookDocumentSyncOptionsNotebookSelectorNotebookCell {
-    language: String,
+    pub language: String,
 }
 
 /// extracted from [NotebookDocumentSyncOptions::notebookSelector]
@@ -3009,12 +3009,12 @@ pub struct NotebookDocumentSyncOptionsNotebookSelectorNotebook {
      * value is provided it matches against the
      * notebook type. '*' matches every notebook.
      */
-    notebook: StringOrNotebookDocumentFilter,
+    pub notebook: StringOrNotebookDocumentFilter,
 
     /**
      * The cells of the matching notebook to be synced.
      */
-    cells: Option<Vec<NotebookDocumentSyncOptionsNotebookSelectorNotebookCell>>,
+    pub cells: Option<Vec<NotebookDocumentSyncOptionsNotebookSelectorNotebookCell>>,
 }
 
 /// extracted from [NotebookDocumentSyncOptions::notebookSelector]
@@ -3025,12 +3025,12 @@ pub struct NotebookDocumentSyncOptionsNotebookSelectorCells {
      * value is provided it matches against the
      * notebook type. '*' matches every notebook.
      */
-    notebook: Option<StringOrNotebookDocumentFilter>,
+    pub notebook: Option<StringOrNotebookDocumentFilter>,
 
     /**
      * The cells of the matching notebook to be synced.
      */
-    cells: Vec<NotebookDocumentSyncOptionsNotebookSelectorNotebookCell>,
+    pub cells: Vec<NotebookDocumentSyncOptionsNotebookSelectorNotebookCell>,
 }
 
 /// extracted from [NotebookDocumentSyncOptions::notebookSelector]
@@ -3064,13 +3064,13 @@ pub struct NotebookDocumentSyncOptions {
     /**
      * The notebooks to be synced
      */
-    notebookSelector: Vec<NotebookDocumentSyncOptionsNotebookSelector>,
+    pub notebookSelector: Vec<NotebookDocumentSyncOptionsNotebookSelector>,
 
     /**
      * Whether save notification should be forwarded to
      * the server. Will only be honored if mode === `notebook`.
      */
-    save: Option<Boolean>,
+    pub save: Option<Boolean>,
 }
 
 /**
@@ -3084,21 +3084,21 @@ pub struct NotebookDocumentSyncRegistrationOptions {
     /**
      * The notebooks to be synced
      */
-    notebookSelector: Vec<NotebookDocumentSyncOptionsNotebookSelector>,
+    pub notebookSelector: Vec<NotebookDocumentSyncOptionsNotebookSelector>,
 
     /// extends NotebookDocumentSyncOptions
     /**
      * Whether save notification should be forwarded to
      * the server. Will only be honored if mode === `notebook`.
      */
-    save: Option<Boolean>,
+    pub save: Option<Boolean>,
 
     /// extends StaticRegistrationOptions
     /**
      * The id used to register the request. The id can be used to deregister
      * the request again. See also Registration#id.
      */
-    id: Option<String>,
+    pub id: Option<String>,
 }
 
 /**
@@ -3111,13 +3111,13 @@ pub struct DidOpenNotebookDocumentParams {
     /**
      * The notebook document that got opened.
      */
-    notebookDocument: NotebookDocument,
+    pub notebookDocument: NotebookDocument,
 
     /**
      * The text documents that represent the content
      * of a notebook cell.
      */
-    cellTextDocuments: Vec<TextDocumentItem>,
+    pub cellTextDocuments: Vec<TextDocumentItem>,
 }
 
 /**
@@ -3131,7 +3131,7 @@ pub struct DidChangeNotebookDocumentParams {
      * The notebook document that did change. The version number points
      * to the version after all provided changes have been applied.
      */
-    notebookDocument: VersionedNotebookDocumentIdentifier,
+    pub notebookDocument: VersionedNotebookDocumentIdentifier,
 
     /**
      * The actual changes to the notebook document.
@@ -3146,7 +3146,7 @@ pub struct DidChangeNotebookDocumentParams {
      * - apply the 'notebookDocument/didChange' notifications in the order
      *   you receive them.
      */
-    change: NotebookDocumentChangeEvent,
+    pub change: NotebookDocumentChangeEvent,
 }
 
 /**
@@ -3159,12 +3159,12 @@ pub struct VersionedNotebookDocumentIdentifier {
     /**
      * The version number of this notebook document.
      */
-    version: Integer,
+    pub version: Integer,
 
     /**
      * The notebook document's URI.
      */
-    uri: URI,
+    pub uri: URI,
 }
 
 /// extracted from [NotebookDocumentChangeEventCells::structure]
@@ -3173,24 +3173,24 @@ pub struct NotebookDocumentChangeEventCellsStructure {
     /**
      * The change to the cell array.
      */
-    array: NotebookCellArrayChange,
+    pub array: NotebookCellArrayChange,
 
     /**
      * Additional opened cell text documents.
      */
-    didOpen: Option<Vec<TextDocumentItem>>,
+    pub didOpen: Option<Vec<TextDocumentItem>>,
 
     /**
      * Additional closed cell text documents.
      */
-    didClose: Option<Vec<TextDocumentIdentifier>>,
+    pub didClose: Option<Vec<TextDocumentIdentifier>>,
 }
 
 /// extracted from [NotebookDocumentChangeEventCells::textContent]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct NotebookDocumentChangeEventCellsTextContent {
-    document: VersionedTextDocumentIdentifier,
-    changes: Vec<TextDocumentContentChangeEvent>,
+    pub document: VersionedTextDocumentIdentifier,
+    pub changes: Vec<TextDocumentContentChangeEvent>,
 }
 
 /// extracted from [NotebookDocumentChangeEvent::cells]
@@ -3200,18 +3200,18 @@ pub struct NotebookDocumentChangeEventCells {
      * Changes to the cell structure to add or
      * remove cells.
      */
-    structure: Option<NotebookDocumentChangeEventCellsStructure>,
+    pub structure: Option<NotebookDocumentChangeEventCellsStructure>,
 
     /**
      * Changes to notebook cells properties like its
      * kind, execution summary or metadata.
      */
-    data: Option<Vec<NotebookCell>>,
+    pub data: Option<Vec<NotebookCell>>,
 
     /**
      * Changes to the text content of notebook cells.
      */
-    textContent: Option<Vec<NotebookDocumentChangeEventCellsTextContent>>,
+    pub textContent: Option<Vec<NotebookDocumentChangeEventCellsTextContent>>,
 }
 
 /**
@@ -3224,12 +3224,12 @@ pub struct NotebookDocumentChangeEvent {
     /**
      * The changed meta data if any.
      */
-    metadata: Option<LSPObject>,
+    pub metadata: Option<LSPObject>,
 
     /**
      * Changes to cells
      */
-    cells: Option<NotebookDocumentChangeEventCells>,
+    pub cells: Option<NotebookDocumentChangeEventCells>,
 }
 
 /**
@@ -3243,17 +3243,17 @@ pub struct NotebookCellArrayChange {
     /**
      * The start offset of the cell that changed.
      */
-    start: UInteger,
+    pub start: UInteger,
 
     /**
      * The deleted cells
      */
-    deleteCount: UInteger,
+    pub deleteCount: UInteger,
 
     /**
      * The new cells, if any
      */
-    cells: Option<Vec<NotebookCell>>,
+    pub cells: Option<Vec<NotebookCell>>,
 }
 
 /**
@@ -3266,7 +3266,7 @@ pub struct DidSaveNotebookDocumentParams {
     /**
      * The notebook document that got saved.
      */
-    notebookDocument: NotebookDocumentIdentifier,
+    pub notebookDocument: NotebookDocumentIdentifier,
 }
 
 /**
@@ -3279,13 +3279,13 @@ pub struct DidCloseNotebookDocumentParams {
     /**
      * The notebook document that got closed.
      */
-    notebookDocument: NotebookDocumentIdentifier,
+    pub notebookDocument: NotebookDocumentIdentifier,
 
     /**
      * The text documents that represent the content
      * of a notebook cell that got closed.
      */
-    cellTextDocuments: Vec<TextDocumentIdentifier>,
+    pub cellTextDocuments: Vec<TextDocumentIdentifier>,
 }
 
 /**
@@ -3298,7 +3298,7 @@ pub struct NotebookDocumentIdentifier {
     /**
      * The notebook document's URI.
      */
-    uri: URI,
+    pub uri: URI,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3308,39 +3308,39 @@ pub struct DeclarationClientCapabilities {
      * `true` the client supports the new `DeclarationRegistrationOptions`
      * return value for the corresponding server capability as well.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 
     /**
      * The client supports additional metadata in the form of declaration links.
      */
-    linkSupport: Option<Boolean>,
+    pub linkSupport: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct DeclarationOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct DeclarationRegistrationOptions {
     /// extends DeclarationOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /// extends TextDocumentRegistrationOptions
     /**
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends StaticRegistrationOptions
     /**
      * The id used to register the request. The id can be used to deregister
      * the request again. See also Registration#id.
      */
-    id: Option<String>,
+    pub id: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3349,26 +3349,26 @@ pub struct DeclarationParams {
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /// extends TextDocumentPositionParams
     /**
      * The position inside the text document.
      */
-    position: Position,
+    pub position: Position,
 
     /// extends WorkDoneProgressParams
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3376,20 +3376,20 @@ pub struct DefinitionClientCapabilities {
     /**
      * Whether definition supports dynamic registration.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 
     /**
      * The client supports additional metadata in the form of definition links.
      *
      * @since 3.14.0
      */
-    linkSupport: Option<Boolean>,
+    pub linkSupport: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct DefinitionOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3399,11 +3399,11 @@ pub struct DefinitionRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends DefinitionOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3412,26 +3412,26 @@ pub struct DefinitionParams {
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /// extends TextDocumentPositionParams
     /**
      * The position inside the text document.
      */
-    position: Position,
+    pub position: Position,
 
     /// extends WorkDoneProgressParams
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3441,20 +3441,20 @@ pub struct TypeDefinitionClientCapabilities {
      * `true` the client supports the new `TypeDefinitionRegistrationOptions`
      * return value for the corresponding server capability as well.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 
     /**
      * The client supports additional metadata in the form of definition links.
      *
      * @since 3.14.0
      */
-    linkSupport: Option<Boolean>,
+    pub linkSupport: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct TypeDefinitionOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3464,18 +3464,18 @@ pub struct TypeDefinitionRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends TypeDefinitionOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /// extends StaticRegistrationOptions
     /**
      * The id used to register the request. The id can be used to deregister
      * the request again. See also Registration#id.
      */
-    id: Option<String>,
+    pub id: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3484,26 +3484,26 @@ pub struct TypeDefinitionParams {
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /// extends TextDocumentPositionParams
     /**
      * The position inside the text document.
      */
-    position: Position,
+    pub position: Position,
 
     /// extends WorkDoneProgressParams
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3513,20 +3513,20 @@ pub struct ImplementationClientCapabilities {
      * `true` the client supports the new `ImplementationRegistrationOptions`
      * return value for the corresponding server capability as well.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 
     /**
      * The client supports additional metadata in the form of definition links.
      *
      * @since 3.14.0
      */
-    linkSupport: Option<Boolean>,
+    pub linkSupport: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ImplementationOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3536,18 +3536,18 @@ pub struct ImplementationRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends ImplementationOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /// extends StaticRegistrationOptions
     /**
      * The id used to register the request. The id can be used to deregister
      * the request again. See also Registration#id.
      */
-    id: Option<String>,
+    pub id: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3556,26 +3556,26 @@ pub struct ImplementationParams {
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /// extends TextDocumentPositionParams
     /**
      * The position inside the text document.
      */
-    position: Position,
+    pub position: Position,
 
     /// extends WorkDoneProgressParams
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3583,13 +3583,13 @@ pub struct ReferenceClientCapabilities {
     /**
      * Whether references supports dynamic registration.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ReferenceOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3599,11 +3599,11 @@ pub struct ReferenceRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends ReferenceOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3612,28 +3612,28 @@ pub struct ReferenceParams {
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /// extends TextDocumentPositionParams
     /**
      * The position inside the text document.
      */
-    position: Position,
+    pub position: Position,
 
     /// extends WorkDoneProgressParams
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 
-    context: ReferenceContext,
+    pub context: ReferenceContext,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3641,7 +3641,7 @@ pub struct ReferenceContext {
     /**
      * Include the declaration of the current symbol.
      */
-    includeDeclaration: Boolean,
+    pub includeDeclaration: Boolean,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3652,13 +3652,13 @@ pub struct CallHierarchyClientCapabilities {
      * StaticRegistrationOptions)` return value for the corresponding server
      * capability as well.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CallHierarchyOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3668,18 +3668,18 @@ pub struct CallHierarchyRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends CallHierarchyOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /// extends StaticRegistrationOptions
     /**
      * The id used to register the request. The id can be used to deregister
      * the request again. See also Registration#id.
      */
-    id: Option<String>,
+    pub id: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3688,18 +3688,18 @@ pub struct CallHierarchyPrepareParams {
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /// extends TextDocumentPositionParams
     /**
      * The position inside the text document.
      */
-    position: Position,
+    pub position: Position,
     /// extends WorkDoneProgressParams
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3707,46 +3707,46 @@ pub struct CallHierarchyItem {
     /**
      * The name of this item.
      */
-    name: String,
+    pub name: String,
 
     /**
      * The kind of this item.
      */
-    kind: SymbolKind,
+    pub kind: SymbolKind,
 
     /**
      * Tags for this item.
      */
-    tags: Option<Vec<SymbolTag>>,
+    pub tags: Option<Vec<SymbolTag>>,
 
     /**
      * More detail for this item, e.g. the signature of a function.
      */
-    detail: Option<String>,
+    pub detail: Option<String>,
 
     /**
      * The resource identifier of this item.
      */
-    uri: DocumentUri,
+    pub uri: DocumentUri,
 
     /**
      * The range enclosing this symbol not including leading/trailing whitespace
      * but everything else, e.g. comments and code.
      */
-    range: Range,
+    pub range: Range,
 
     /**
      * The range that should be selected and revealed when this symbol is being
      * picked, e.g. the name of a function. Must be contained by the
      * [`range`](#CallHierarchyItem.range).
      */
-    selectionRange: Range,
+    pub selectionRange: Range,
 
     /**
      * A data entry field that is preserved between a call hierarchy prepare and
      * incoming calls or outgoing calls requests.
      */
-    data: Option<LSPAny>,
+    pub data: Option<LSPAny>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3755,16 +3755,16 @@ pub struct CallHierarchyIncomingCallsParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 
-    item: CallHierarchyItem,
+    pub item: CallHierarchyItem,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3772,13 +3772,13 @@ pub struct CallHierarchyIncomingCall {
     /**
      * The item that makes the call.
      */
-    from: CallHierarchyItem,
+    pub from: CallHierarchyItem,
 
     /**
      * The ranges at which the calls appear. This is relative to the caller
      * denoted by [`this.from`](#CallHierarchyIncomingCall.from).
      */
-    fromRanges: Vec<Range>,
+    pub fromRanges: Vec<Range>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3787,16 +3787,16 @@ pub struct CallHierarchyOutgoingCallsParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 
-    item: CallHierarchyItem,
+    pub item: CallHierarchyItem,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3804,13 +3804,13 @@ pub struct CallHierarchyOutgoingCall {
     /**
      * The item that is called.
      */
-    to: CallHierarchyItem,
+    pub to: CallHierarchyItem,
 
     /**
      * The range at which this item is called. This is the range relative to
      * the caller, e.g the item passed to `callHierarchy/outgoingCalls` request.
      */
-    fromRanges: Vec<Range>,
+    pub fromRanges: Vec<Range>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3821,13 +3821,13 @@ pub struct TypeHierarchyClientCapabilities {
      * StaticRegistrationOptions)` return value for the corresponding server
      * capability as well.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct TypeHierarchyOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3837,18 +3837,18 @@ pub struct TypeHierarchyRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends TypeHierarchyOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /// extends StaticRegistrationOptions
     /**
      * The id used to register the request. The id can be used to deregister
      * the request again. See also Registration#id.
      */
-    id: Option<String>,
+    pub id: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3857,19 +3857,19 @@ pub struct TypeHierarchyPrepareParams {
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /// extends TextDocumentPositionParams
     /**
      * The position inside the text document.
      */
-    position: Position,
+    pub position: Position,
 
     /// extends WorkDoneProgressParams
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3877,40 +3877,40 @@ pub struct TypeHierarchyItem {
     /**
      * The name of this item.
      */
-    name: String,
+    pub name: String,
 
     /**
      * The kind of this item.
      */
-    kind: SymbolKind,
+    pub kind: SymbolKind,
 
     /**
      * Tags for this item.
      */
-    tags: Option<Vec<SymbolTag>>,
+    pub tags: Option<Vec<SymbolTag>>,
 
     /**
      * More detail for this item, e.g. the signature of a function.
      */
-    detail: Option<String>,
+    pub detail: Option<String>,
 
     /**
      * The resource identifier of this item.
      */
-    uri: DocumentUri,
+    pub uri: DocumentUri,
 
     /**
      * The range enclosing this symbol not including leading/trailing whitespace
      * but everything else, e.g. comments and code.
      */
-    range: Range,
+    pub range: Range,
 
     /**
      * The range that should be selected and revealed when this symbol is being
      * picked, e.g. the name of a function. Must be contained by the
      * [`range`](#TypeHierarchyItem.range).
      */
-    selectionRange: Range,
+    pub selectionRange: Range,
 
     /**
      * A data entry field that is preserved between a type hierarchy prepare and
@@ -3918,7 +3918,7 @@ pub struct TypeHierarchyItem {
      * type hierarchy in the server, helping improve the performance on
      * resolving supertypes and subtypes.
      */
-    data: Option<LSPAny>,
+    pub data: Option<LSPAny>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3927,16 +3927,16 @@ pub struct TypeHierarchySupertypesParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 
-    item: TypeHierarchyItem,
+    pub item: TypeHierarchyItem,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3945,16 +3945,16 @@ pub struct TypeHierarchySubtypesParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 
-    item: TypeHierarchyItem,
+    pub item: TypeHierarchyItem,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3962,13 +3962,13 @@ pub struct DocumentHighlightClientCapabilities {
     /**
      * Whether document highlight supports dynamic registration.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct DocumentHighlightOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3978,11 +3978,11 @@ pub struct DocumentHighlightRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends DocumentHighlightOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -3991,26 +3991,26 @@ pub struct DocumentHighlightParams {
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /// extends TextDocumentPositionParams
     /**
      * The position inside the text document.
      */
-    position: Position,
+    pub position: Position,
 
     /// extends WorkDoneProgressParams
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 }
 
 /**
@@ -4024,12 +4024,12 @@ pub struct DocumentHighlight {
     /**
      * The range this highlight applies to.
      */
-    range: Range,
+    pub range: Range,
 
     /**
      * The highlight kind, default is DocumentHighlightKind.Text.
      */
-    kind: Option<DocumentHighlightKind>,
+    pub kind: Option<DocumentHighlightKind>,
 }
 
 /**
@@ -4059,25 +4059,25 @@ pub struct DocumentLinkClientCapabilities {
     /**
      * Whether document link supports dynamic registration.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 
     /**
      * Whether the client supports the `tooltip` property on `DocumentLink`.
      *
      * @since 3.15.0
      */
-    tooltipSupport: Option<Boolean>,
+    pub tooltipSupport: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct DocumentLinkOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /**
      * Document links have a resolve provider as well.
      */
-    resolveProvider: Option<Boolean>,
+    pub resolveProvider: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -4087,16 +4087,16 @@ pub struct DocumentLinkRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends DocumentLinkOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /**
      * Document links have a resolve provider as well.
      */
-    resolveProvider: Option<Boolean>,
+    pub resolveProvider: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -4105,19 +4105,19 @@ pub struct DocumentLinkParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 
     /**
      * The document to provide document links for.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 }
 
 /**
@@ -4129,12 +4129,12 @@ pub struct DocumentLink {
     /**
      * The range this link applies to.
      */
-    range: Range,
+    pub range: Range,
 
     /**
      * The uri this link points to. If missing a resolve request is sent later.
      */
-    target: Option<URI>,
+    pub target: Option<URI>,
 
     /**
      * The tooltip text when you hover over this link.
@@ -4146,13 +4146,13 @@ pub struct DocumentLink {
      *
      * @since 3.15.0
      */
-    tooltip: Option<String>,
+    pub tooltip: Option<String>,
 
     /**
      * A data entry field that is preserved on a document link between a
      * DocumentLinkRequest and a DocumentLinkResolveRequest.
      */
-    data: Option<LSPAny>,
+    pub data: Option<LSPAny>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -4160,20 +4160,20 @@ pub struct HoverClientCapabilities {
     /**
      * Whether hover supports dynamic registration.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 
     /**
      * Client supports the follow content formats if the content
      * property refers to a `literal of type MarkupContent`.
      * The order describes the preferred format of the client.
      */
-    contentFormat: Option<Vec<MarkupKind>>,
+    pub contentFormat: Option<Vec<MarkupKind>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct HoverOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -4183,11 +4183,11 @@ pub struct HoverRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends HoverOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 /// there are 2 HoverParams
@@ -4197,19 +4197,19 @@ pub struct HoverParams2 {
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /// extends TextDocumentPositionParams
     /**
      * The position inside the text document.
      */
-    position: Position,
+    pub position: Position,
 
     /// extends WorkDoneProgressParams
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 }
 
 /// extracted from [Hover::contents]
@@ -4228,13 +4228,13 @@ pub struct Hover {
     /**
      * The hover's content
      */
-    contents: HoverContents,
+    pub contents: HoverContents,
 
     /**
      * An optional range is a range inside a text document
      * that is used to visualize a hover, e.g. by changing the background color.
      */
-    range: Option<Range>,
+    pub range: Option<Range>,
 }
 
 /**
@@ -4266,18 +4266,18 @@ pub struct CodeLensClientCapabilities {
     /**
      * Whether code lens supports dynamic registration.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CodeLensOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /**
      * Code lens has a resolve provider as well.
      */
-    resolveProvider: Option<Boolean>,
+    pub resolveProvider: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -4287,17 +4287,17 @@ pub struct CodeLensRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends CodeLensOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /// extends CodeLensOptions
     /**
      * Code lens has a resolve provider as well.
      */
-    resolveProvider: Option<Boolean>,
+    pub resolveProvider: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -4306,19 +4306,19 @@ pub struct CodeLensParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 
     /**
      * The document to request code lens for.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 }
 
 /**
@@ -4335,18 +4335,18 @@ pub struct CodeLens {
      * The range in which this code lens is valid. Should only span a single
      * line.
      */
-    range: Range,
+    pub range: Range,
 
     /**
      * The command this code lens represents.
      */
-    command: Option<Command>,
+    pub command: Option<Command>,
 
     /**
      * A data entry field that is preserved on a code lens item between
      * a code lens and a code lens resolve request.
      */
-    data: Option<LSPAny>,
+    pub data: Option<LSPAny>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -4360,7 +4360,7 @@ pub struct CodeLensWorkspaceClientCapabilities {
      * useful for situation where a server for example detect a project wide
      * change that requires such a calculation.
      */
-    refreshSupport: Option<Boolean>,
+    pub refreshSupport: Option<Boolean>,
 }
 
 /// extracted from [FoldingRangeClientCapabilities::foldingRangeKing]
@@ -4372,7 +4372,7 @@ pub struct FoldingRangeKindStruct {
      * handle values outside its set gracefully and falls back
      * to a default value when unknown.
      */
-    valueSet: Option<Vec<FoldingRangeKind>>,
+    pub valueSet: Option<Vec<FoldingRangeKind>>,
 }
 
 /// extracted from [FoldingRangeClientCapabilities::foldingRange]
@@ -4384,7 +4384,7 @@ pub struct FoldingRangeStruct {
      *
      * @since 3.17.0
      */
-    collapsedText: Option<Boolean>,
+    pub collapsedText: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -4395,40 +4395,40 @@ pub struct FoldingRangeClientCapabilities {
      * `FoldingRangeRegistrationOptions` return value for the corresponding
      * server capability as well.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 
     /**
      * The maximum number of folding ranges that the client prefers to receive
      * per document. The value serves as a hint, servers are free to follow the
      * limit.
      */
-    rangeLimit: Option<UInteger>,
+    pub rangeLimit: Option<UInteger>,
 
     /**
      * If set, the client signals that it only supports folding complete lines.
      * If set, client will ignore specified `startCharacter` and `endCharacter`
      * properties in a FoldingRange.
      */
-    lineFoldingOnly: Option<Boolean>,
+    pub lineFoldingOnly: Option<Boolean>,
 
     /**
      * Specific options for the folding range kind.
      *
      * @since 3.17.0
      */
-    foldingRangeKind: Option<FoldingRangeKindStruct>,
+    pub foldingRangeKind: Option<FoldingRangeKindStruct>,
 
     /**
      * Specific options for the folding range.
      * @since 3.17.0
      */
-    foldingRange: Option<FoldingRangeStruct>,
+    pub foldingRange: Option<FoldingRangeStruct>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct FoldingRangeOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -4438,18 +4438,18 @@ pub struct FoldingRangeRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends FoldingRangeOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /// extends StaticRegistrationOptions
     /**
      * The id used to register the request. The id can be used to deregister
      * the request again. See also Registration#id.
      */
-    id: Option<String>,
+    pub id: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -4458,19 +4458,19 @@ pub struct FoldingRangeParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 }
 
 /**
@@ -4512,26 +4512,26 @@ pub struct FoldingRange {
      * after the line's last character. To be valid, the end must be zero or
      * larger and smaller than the number of lines in the document.
      */
-    startLine: UInteger,
+    pub startLine: UInteger,
 
     /**
      * The zero-based character offset from where the folded range starts. If
      * not defined, defaults to the length of the start line.
      */
-    startCharacter: Option<UInteger>,
+    pub startCharacter: Option<UInteger>,
 
     /**
      * The zero-based end line of the range to fold. The folded area ends with
      * the line's last character. To be valid, the end must be zero or larger
      * and smaller than the number of lines in the document.
      */
-    endLine: UInteger,
+    pub endLine: UInteger,
 
     /**
      * The zero-based character offset before the folded range ends. If not
      * defined, defaults to the length of the end line.
      */
-    endCharacter: Option<UInteger>,
+    pub endCharacter: Option<UInteger>,
 
     /**
      * Describes the kind of the folding range such as `comment` or `region`.
@@ -4539,7 +4539,7 @@ pub struct FoldingRange {
      * 'Fold all comments'. See [FoldingRangeKind](#FoldingRangeKind) for an
      * enumeration of standardized kinds.
      */
-    kind: Option<FoldingRangeKind>,
+    pub kind: Option<FoldingRangeKind>,
 
     /**
      * The text that the client should show when the specified range is
@@ -4548,7 +4548,7 @@ pub struct FoldingRange {
      *
      * @since 3.17.0 - proposed
      */
-    collapsedText: Option<String>,
+    pub collapsedText: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -4559,34 +4559,34 @@ pub struct SelectionRangeClientCapabilities {
      * `SelectionRangeRegistrationOptions` return value for the corresponding
      * server capability as well.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SelectionRangeOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SelectionRangeRegistrationOptions {
     /// extends SelectionRangeOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /// extends TextDocumentRegistrationOptions
     /**
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends StaticRegistrationOptions
     /**
      * The id used to register the request. The id can be used to deregister
      * the request again. See also Registration#id.
      */
-    id: Option<String>,
+    pub id: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -4595,24 +4595,24 @@ pub struct SelectionRangeParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /**
      * The positions inside the text document.
      */
-    positions: Vec<Position>,
+    pub positions: Vec<Position>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -4620,13 +4620,13 @@ pub struct SelectionRange {
     /**
      * The [range](#Range) of this selection range.
      */
-    range: Range,
+    pub range: Range,
     /**
      * The parent selection range containing this range. Therefore
      * `parent.range` must contain `this.range`.
      */
     // parent: Option<SelectionRange>,
-    parent: Option<Box<SelectionRange>>,
+    pub parent: Option<Box<SelectionRange>>,
 }
 
 /// extracted from [DocumentSymbolClientCapabilities::symbolKind]
@@ -4642,7 +4642,7 @@ pub struct SymbolKindStruct {
      * the symbol kinds from `File` to `Array` as defined in
      * the initial version of the protocol.
      */
-    valueSet: Option<Vec<SymbolKind>>,
+    pub valueSet: Option<Vec<SymbolKind>>,
 }
 
 /// extracted from [DocumentSymbolClientCapabilities::tagSupport]
@@ -4651,7 +4651,7 @@ pub struct TagSupportStruct {
     /**
      * The tags supported by the client.
      */
-    valueSet: Vec<SymbolTag>,
+    pub valueSet: Vec<SymbolTag>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -4659,18 +4659,18 @@ pub struct DocumentSymbolClientCapabilities {
     /**
      * Whether document symbol supports dynamic registration.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 
     /**
      * Specific capabilities for the `SymbolKind` in the
      * `textDocument/documentSymbol` request.
      */
-    symbolKind: Option<SymbolKindStruct>,
+    pub symbolKind: Option<SymbolKindStruct>,
 
     /**
      * The client supports hierarchical document symbols.
      */
-    hierarchicalDocumentSymbolSupport: Option<Boolean>,
+    pub hierarchicalDocumentSymbolSupport: Option<Boolean>,
 
     /**
      * The client supports tags on `SymbolInformation`. Tags are supported on
@@ -4679,7 +4679,7 @@ pub struct DocumentSymbolClientCapabilities {
      *
      * @since 3.16.0
      */
-    tagSupport: Option<TagSupportStruct>,
+    pub tagSupport: Option<TagSupportStruct>,
 
     /**
      * The client supports an additional label presented in the UI when
@@ -4687,13 +4687,13 @@ pub struct DocumentSymbolClientCapabilities {
      *
      * @since 3.16.0
      */
-    labelSupport: Option<Boolean>,
+    pub labelSupport: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct DocumentSymbolOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /**
      * A human-readable String that is shown when multiple outlines trees
@@ -4701,7 +4701,7 @@ pub struct DocumentSymbolOptions {
      *
      * @since 3.16.0
      */
-    label: Option<String>,
+    pub label: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -4711,11 +4711,11 @@ pub struct DocumentSymbolRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends DocumentSymbolOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /// extends DocumentSymbolOptions
     /**
@@ -4724,7 +4724,7 @@ pub struct DocumentSymbolRegistrationOptions {
      *
      * @since 3.16.0
      */
-    label: Option<String>,
+    pub label: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -4733,19 +4733,19 @@ pub struct DocumentSymbolParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 }
 
 /**
@@ -4809,31 +4809,31 @@ pub struct DocumentSymbol {
      * therefore must not be an empty String or a String only consisting of
      * white spaces.
      */
-    name: String,
+    pub name: String,
 
     /**
      * More detail for this symbol, e.g the signature of a function.
      */
-    detail: Option<String>,
+    pub detail: Option<String>,
 
     /**
      * The kind of this symbol.
      */
-    kind: SymbolKind,
+    pub kind: SymbolKind,
 
     /**
      * Tags for this document symbol.
      *
      * @since 3.16.0
      */
-    tags: Option<Vec<SymbolTag>>,
+    pub tags: Option<Vec<SymbolTag>>,
 
     /**
      * Indicates if this symbol is deprecated.
      *
      * @deprecated Use tags instead
      */
-    deprecated: Option<Boolean>,
+    pub deprecated: Option<Boolean>,
 
     /**
      * The range enclosing this symbol not including leading/trailing whitespace
@@ -4841,18 +4841,18 @@ pub struct DocumentSymbol {
      * determine if the clients cursor is inside the symbol to reveal in the
      * symbol in the UI.
      */
-    range: Range,
+    pub range: Range,
 
     /**
      * The range that should be selected and revealed when this symbol is being
      * picked, e.g. the name of a function. Must be contained by the `range`.
      */
-    selectionRange: Range,
+    pub selectionRange: Range,
 
     /**
      * Children of this symbol, e.g. properties of a class.
      */
-    children: Option<Vec<DocumentSymbol>>,
+    pub children: Option<Vec<DocumentSymbol>>,
 }
 
 /**
@@ -4866,26 +4866,26 @@ pub struct SymbolInformation {
     /**
      * The name of this symbol.
      */
-    name: String,
+    pub name: String,
 
     /**
      * The kind of this symbol.
      */
-    kind: SymbolKind,
+    pub kind: SymbolKind,
 
     /**
      * Tags for this symbol.
      *
      * @since 3.16.0
      */
-    tags: Option<Vec<SymbolTag>>,
+    pub tags: Option<Vec<SymbolTag>>,
 
     /**
      * Indicates if this symbol is deprecated.
      *
      * @deprecated Use tags instead
      */
-    deprecated: Option<Boolean>,
+    pub deprecated: Option<Boolean>,
 
     /**
      * The location of this symbol. The location's range is used by a tool
@@ -4898,7 +4898,7 @@ pub struct SymbolInformation {
      * syntax tree. It can therefore not be used to re-construct a hierarchy of
      * the symbols.
      */
-    location: Location,
+    pub location: Location,
 
     /**
      * The name of the symbol containing this symbol. This information is for
@@ -4906,7 +4906,7 @@ pub struct SymbolInformation {
      * if necessary). It can't be used to re-infer a hierarchy for the document
      * symbols.
      */
-    containerName: Option<String>,
+    pub containerName: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -5001,12 +5001,12 @@ pub struct SemanticTokensLegend {
     /**
      * The token types a server uses.
      */
-    tokenTypes: Vec<String>,
+    pub tokenTypes: Vec<String>,
 
     /**
      * The token modifiers a server uses.
      */
-    tokenModifiers: Vec<String>,
+    pub tokenModifiers: Vec<String>,
 }
 
 /// extracted from [SemanticTokensClientCapabilitiesRequests::full]
@@ -5019,7 +5019,7 @@ pub enum SemanticTokensClientCapabilitiesRequestsFull {
          * The client will send the `textDocument/semanticTokens/full/delta`
          * request if the server provides a corresponding handler.
          */
-        delta: Option<Boolean>,
+        pub delta: Option<Boolean>,
     },
 }
 
@@ -5030,13 +5030,13 @@ pub struct SemanticTokensClientCapabilitiesRequests {
      * The client will send the `textDocument/semanticTokens/range` request
      * if the server provides a corresponding handler.
      */
-    range: Option<Boolean>,
+    pub range: Option<Boolean>,
 
     /**
      * The client will send the `textDocument/semanticTokens/full` request
      * if the server provides a corresponding handler.
      */
-    full: SemanticTokensClientCapabilitiesRequestsFull,
+    pub full: SemanticTokensClientCapabilitiesRequestsFull,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -5047,7 +5047,7 @@ pub struct SemanticTokensClientCapabilities {
      * StaticRegistrationOptions)` return value for the corresponding server
      * capability as well.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 
     /**
      * Which requests the client supports and might send to the server
@@ -5059,32 +5059,32 @@ pub struct SemanticTokensClientCapabilities {
      * range provider the client might not render a minimap correctly or might
      * even decide to not show any semantic tokens at all.
      */
-    requests: SemanticTokensClientCapabilitiesRequests,
+    pub requests: SemanticTokensClientCapabilitiesRequests,
 
     /**
      * The token types that the client supports.
      */
-    tokenTypes: Vec<String>,
+    pub tokenTypes: Vec<String>,
 
     /**
      * The token modifiers that the client supports.
      */
-    tokenModifiers: Vec<String>,
+    pub tokenModifiers: Vec<String>,
 
     /**
      * The formats the clients supports.
      */
-    formats: Vec<TokenFormat>,
+    pub formats: Vec<TokenFormat>,
 
     /**
      * Whether the client supports tokens that can overlap each other.
      */
-    overlappingTokenSupport: Option<Boolean>,
+    pub overlappingTokenSupport: Option<Boolean>,
 
     /**
      * Whether the client supports tokens that can span multiple lines.
      */
-    multilineTokenSupport: Option<Boolean>,
+    pub multilineTokenSupport: Option<Boolean>,
 
     /**
      * Whether the client allows the server to actively cancel a
@@ -5094,7 +5094,7 @@ pub struct SemanticTokensClientCapabilities {
      *
      * @since 3.17.0
      */
-    serverCancelSupport: Option<Boolean>,
+    pub serverCancelSupport: Option<Boolean>,
 
     /**
      * Whether the client uses semantic tokens to augment existing
@@ -5108,13 +5108,13 @@ pub struct SemanticTokensClientCapabilities {
      *
      * @since 3.17.0
      */
-    augmentsSyntaxTokens: Option<Boolean>,
+    pub augmentsSyntaxTokens: Option<Boolean>,
 }
 
 /// extended from [SemanticTokensOptions::full]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SemanticTokensOptionsFullDelta {
-    delta: Option<Boolean>,
+    pub delta: Option<Boolean>,
 }
 
 /// extended from [SemanticTokensOptions::full]
@@ -5127,24 +5127,24 @@ pub enum SemanticTokensOptionsFull {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SemanticTokensOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /**
      * The legend used by the server
      */
-    legend: SemanticTokensLegend,
+    pub legend: SemanticTokensLegend,
 
     /**
      * Server supports providing semantic tokens for a specific range
      * of a document.
      */
     /// idk why the docs say `range?: boolean | { };`
-    range: Option<Boolean>,
+    pub range: Option<Boolean>,
 
     /**
      * Server supports providing semantic tokens for a full document.
      */
-    full: Option<SemanticTokensOptionsFull>,
+    pub full: Option<SemanticTokensOptionsFull>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -5154,17 +5154,17 @@ pub struct SemanticTokensRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends SemanticTokensOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /// extends SemanticTokensOptions
     /**
      * The legend used by the server
      */
-    legend: SemanticTokensLegend,
+    pub legend: SemanticTokensLegend,
     /// extends SemanticTokensOptions
 
     /// extends SemanticTokensOptions
@@ -5173,20 +5173,20 @@ pub struct SemanticTokensRegistrationOptions {
      * of a document.
      */
     /// idk why the docs say `range?: boolean | { };`
-    range: Option<Boolean>,
+    pub range: Option<Boolean>,
 
     /// extends SemanticTokensOptions
     /**
      * Server supports providing semantic tokens for a full document.
      */
-    full: Option<SemanticTokensOptionsFull>,
+    pub full: Option<SemanticTokensOptionsFull>,
 
     /// extends StaticRegistrationOptions
     /**
      * The id used to register the request. The id can be used to deregister
      * the request again. See also Registration#id.
      */
-    id: Option<String>,
+    pub id: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -5195,19 +5195,19 @@ pub struct SemanticTokensParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -5218,17 +5218,17 @@ pub struct SemanticTokens {
      * A server can then instead of computing all semantic tokens again simply
      * send a delta.
      */
-    resultId: Option<String>,
+    pub resultId: Option<String>,
 
     /**
      * The actual tokens.
      */
-    data: Vec<UInteger>,
+    pub data: Vec<UInteger>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SemanticTokensPartialResult {
-    data: Vec<UInteger>,
+    pub data: Vec<UInteger>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -5237,36 +5237,36 @@ pub struct SemanticTokensDeltaParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /**
      * The result id of a previous response. The result Id can either point to
      * a full response or a delta response depending on what was received last.
      */
-    previousResultId: String,
+    pub previousResultId: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SemanticTokensDelta {
     /// readonly
-    resultId: Option<String>,
+    pub resultId: Option<String>,
     /**
      * The semantic token edits to transform a previous result into a new
      * result.
      */
-    edits: Vec<SemanticTokensEdit>,
+    pub edits: Vec<SemanticTokensEdit>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -5274,22 +5274,22 @@ pub struct SemanticTokensEdit {
     /**
      * The start offset of the edit.
      */
-    start: UInteger,
+    pub start: UInteger,
 
     /**
      * The count of elements to remove.
      */
-    deleteCount: UInteger,
+    pub deleteCount: UInteger,
 
     /**
      * The elements to insert.
      */
-    data: Option<Vec<UInteger>>,
+    pub data: Option<Vec<UInteger>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SemanticTokensDeltaPartialResult {
-    edits: Vec<SemanticTokensEdit>,
+    pub edits: Vec<SemanticTokensEdit>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -5298,24 +5298,24 @@ pub struct SemanticTokensRangeParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /**
      * The range the semantic tokens are requested for.
      */
-    range: Range,
+    pub range: Range,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -5329,7 +5329,7 @@ pub struct SemanticTokensWorkspaceClientCapabilities {
      * and is useful for situation where a server for example detect a project
      * wide change that requires such a calculation.
      */
-    refreshSupport: Option<Boolean>,
+    pub refreshSupport: Option<Boolean>,
 }
 
 /// extracted from [InlayHintClientCapabilities::resolveSupport]
@@ -5338,7 +5338,7 @@ pub struct InlayHintClientCapabilitiesResolveSupport {
     /**
      * The properties that a client can resolve lazily.
      */
-    properties: Vec<String>,
+    pub properties: Vec<String>,
 }
 
 /**
@@ -5351,13 +5351,13 @@ pub struct InlayHintClientCapabilities {
     /**
      * Whether inlay hints support dynamic registration.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 
     /**
      * Indicates which properties a client can resolve lazily on an inlay
      * hint.
      */
-    resolveSupport: Option<InlayHintClientCapabilitiesResolveSupport>,
+    pub resolveSupport: Option<InlayHintClientCapabilitiesResolveSupport>,
 }
 
 /**
@@ -5368,13 +5368,13 @@ pub struct InlayHintClientCapabilities {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct InlayHintOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /**
      * The server provides support to resolve additional
      * information for an inlay hint item.
      */
-    resolveProvider: Option<Boolean>,
+    pub resolveProvider: Option<Boolean>,
 }
 
 /**
@@ -5386,28 +5386,28 @@ pub struct InlayHintOptions {
 pub struct InlayHintRegistrationOptions {
     /// extends InlayHintOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /// extends InlayHintOptions
     /**
      * The server provides support to resolve additional
      * information for an inlay hint item.
      */
-    resolveProvider: Option<Boolean>,
+    pub resolveProvider: Option<Boolean>,
 
     /// extends TextDocumentRegistrationOptions
     /**
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends StaticRegistrationOptions
     /**
      * The id used to register the request. The id can be used to deregister
      * the request again. See also Registration#id.
      */
-    id: Option<String>,
+    pub id: Option<String>,
 }
 
 /**
@@ -5421,17 +5421,17 @@ pub struct InlayHintParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /**
      * The visible document range for which inlay hints should be computed.
      */
-    range: Range,
+    pub range: Range,
 }
 
 /// extracted from [InlayHint::label]
@@ -5455,7 +5455,7 @@ pub struct InlayHint {
      * If multiple hints have the same position, they will be shown in the order
      * they appear in the response.
      */
-    position: Position,
+    pub position: Position,
 
     /**
      * The label of this hint. A human readable String or an array of
@@ -5463,13 +5463,13 @@ pub struct InlayHint {
      *
      * *Note* that neither the String nor the label part can be empty.
      */
-    label: InlayHintLabel,
+    pub label: InlayHintLabel,
 
     /**
      * The kind of this hint. Can be omitted in which case the client
      * should fall back to a reasonable default.
      */
-    kind: Option<InlayHintKind>,
+    pub kind: Option<InlayHintKind>,
 
     /**
      * Optional text edits that are performed when accepting this inlay hint.
@@ -5481,7 +5481,7 @@ pub struct InlayHint {
      * Depending on the client capability `inlayHint.resolveSupport` clients
      * might resolve this property late using the resolve request.
      */
-    textEdits: Option<Vec<TextEdit>>,
+    pub textEdits: Option<Vec<TextEdit>>,
 
     /**
      * The tooltip text when you hover over this item.
@@ -5489,7 +5489,7 @@ pub struct InlayHint {
      * Depending on the client capability `inlayHint.resolveSupport` clients
      * might resolve this property late using the resolve request.
      */
-    tooltip: Option<MarkupContentOrString>,
+    pub tooltip: Option<MarkupContentOrString>,
 
     /**
      * Render padding before the hint.
@@ -5498,7 +5498,7 @@ pub struct InlayHint {
      * background color of the hint itself. That means padding can be used
      * to visually align/separate an inlay hint.
      */
-    paddingLeft: Option<Boolean>,
+    pub paddingLeft: Option<Boolean>,
 
     /**
      * Render padding after the hint.
@@ -5507,12 +5507,12 @@ pub struct InlayHint {
      * background color of the hint itself. That means padding can be used
      * to visually align/separate an inlay hint.
      */
-    paddingRight: Option<Boolean>,
+    pub paddingRight: Option<Boolean>,
     /**
      * A data entry field that is preserved on an inlay hint between
      * a `textDocument/inlayHint` and a `inlayHint/resolve` request.
      */
-    data: Option<LSPAny>,
+    pub data: Option<LSPAny>,
 }
 
 /**
@@ -5526,14 +5526,14 @@ pub struct InlayHintLabelPart {
     /**
      * The value of this label part.
      */
-    value: String,
+    pub value: String,
 
     /**
      * The tooltip text when you hover over this label part. Depending on
      * the client capability `inlayHint.resolveSupport` clients might resolve
      * this property late using the resolve request.
      */
-    tooltip: Option<MarkupContentOrString>,
+    pub tooltip: Option<MarkupContentOrString>,
 
     /**
      * An optional source code location that represents this
@@ -5548,7 +5548,7 @@ pub struct InlayHintLabelPart {
      * Depending on the client capability `inlayHint.resolveSupport` clients
      * might resolve this property late using the resolve request.
      */
-    location: Option<Location>,
+    pub location: Option<Location>,
 
     /**
      * An optional command for this label part.
@@ -5556,7 +5556,7 @@ pub struct InlayHintLabelPart {
      * Depending on the client capability `inlayHint.resolveSupport` clients
      * might resolve this property late using the resolve request.
      */
-    command: Option<Command>,
+    pub command: Option<Command>,
 }
 
 /**
@@ -5594,7 +5594,7 @@ pub struct InlayHintWorkspaceClientCapabilities {
      * is useful for situation where a server for example detects a project wide
      * change that requires such a calculation.
      */
-    refreshSupport: Option<Boolean>,
+    pub refreshSupport: Option<Boolean>,
 }
 
 /**
@@ -5608,7 +5608,7 @@ pub struct InlineValueClientCapabilities {
      * Whether implementation supports dynamic registration for inline
      * value providers.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 }
 
 /**
@@ -5619,7 +5619,7 @@ pub struct InlineValueClientCapabilities {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct InlineValueOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 /**
@@ -5631,21 +5631,21 @@ pub struct InlineValueOptions {
 pub struct InlineValueRegistrationOptions {
     /// extends InlineValueOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /// extends TextDocumentRegistrationOptions
     /**
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends StaticRegistrationOptions
     /**
      * The id used to register the request. The id can be used to deregister
      * the request again. See also Registration#id.
      */
-    id: Option<String>,
+    pub id: Option<String>,
 }
 
 /**
@@ -5659,23 +5659,23 @@ pub struct InlineValueParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /**
      * The document range for which inline values should be computed.
      */
-    range: Range,
+    pub range: Range,
 
     /**
      * Additional information about the context in which inline values were
      * requested.
      */
-    context: InlineValueContext,
+    pub context: InlineValueContext,
 }
 
 /**
@@ -5686,14 +5686,14 @@ pub struct InlineValueContext {
     /**
      * The stack frame (as a DAP Id) where the execution has stopped.
      */
-    frameId: Integer,
+    pub frameId: Integer,
 
     /**
      * The document range where execution has stopped.
      * Typically the end position of the range denotes the line where the
      * inline values are shown.
      */
-    stoppedLocation: Range,
+    pub stoppedLocation: Range,
 }
 
 /**
@@ -5706,12 +5706,12 @@ pub struct InlineValueText {
     /**
      * The document range for which the inline value applies.
      */
-    range: Range,
+    pub range: Range,
 
     /**
      * The text of the inline value.
      */
-    text: String,
+    pub text: String,
 }
 
 /**
@@ -5731,17 +5731,17 @@ pub struct InlineValueVariableLookup {
      * The range is used to extract the variable name from the underlying
      * document.
      */
-    range: Range,
+    pub range: Range,
 
     /**
      * If specified the name of the variable to look up.
      */
-    variableName: Option<String>,
+    pub variableName: Option<String>,
 
     /**
      * How to perform the lookup.
      */
-    caseSensitiveLookup: Boolean,
+    pub caseSensitiveLookup: Boolean,
 }
 
 /**
@@ -5761,12 +5761,12 @@ pub struct InlineValueEvaluatableExpression {
      * The range is used to extract the evaluatable expression from the
      * underlying document.
      */
-    range: Range,
+    pub range: Range,
 
     /**
      * If specified the expression overrides the extracted expression.
      */
-    expression: Option<String>,
+    pub expression: Option<String>,
 }
 
 /**
@@ -5801,7 +5801,7 @@ pub struct InlineValueWorkspaceClientCapabilities {
      * is useful for situation where a server for example detect a project wide
      * change that requires such a calculation.
      */
-    refreshSupport: Option<Boolean>,
+    pub refreshSupport: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -5812,13 +5812,13 @@ pub struct MonikerClientCapabilities {
      * StaticRegistrationOptions)` return value for the corresponding server
      * capability as well.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct MonikerOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -5828,11 +5828,11 @@ pub struct MonikerRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends MonikerOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -5841,26 +5841,26 @@ pub struct MonikerParams {
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /// extends TextDocumentPositionParams
     /**
      * The position inside the text document.
      */
-    position: Position,
+    pub position: Position,
 
     /// extends WorkDoneProgressParams
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 }
 
 /**
@@ -5932,23 +5932,23 @@ pub struct Moniker {
     /**
      * The scheme of the moniker. For example tsc or .Net
      */
-    scheme: String,
+    pub scheme: String,
 
     /**
      * The identifier of the moniker. The value is opaque in LSIF however
      * schema owners are allowed to define the structure if they want.
      */
-    identifier: String,
+    pub identifier: String,
 
     /**
      * The scope in which the moniker is unique
      */
-    unique: UniquenessLevel,
+    pub unique: UniquenessLevel,
 
     /**
      * The moniker kind if known.
      */
-    kind: Option<MonikerKind>,
+    pub kind: Option<MonikerKind>,
 }
 
 /// extracts from [CompletionClientCapabilitiesCompletionItem::tagSupport]
@@ -5957,7 +5957,7 @@ pub struct CompletionItemTagValueSet {
     /**
      * The tags supported by the client.
      */
-    valueSet: Vec<CompletionItemTag>,
+    pub valueSet: Vec<CompletionItemTag>,
 }
 
 /// extracts from [CompletionClientCapabilitiesCompletionItem::resolveSupport]
@@ -5966,13 +5966,13 @@ pub struct ResolveSupportProperties {
     /**
      * The properties that a client can resolve lazily.
      */
-    properties: Vec<String>,
+    pub properties: Vec<String>,
 }
 
 /// extracts from [CompletionClientCapabilitiesCompletionItem::insertTextModeSupport]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct InsertTextModeValueSet {
-    valueSet: Vec<InsertTextMode>,
+    pub valueSet: Vec<InsertTextMode>,
 }
 
 /// extracts from [CompletionClientCapabilities::completionItem]
@@ -5986,28 +5986,28 @@ pub struct CompletionClientCapabilitiesCompletionItem {
      * the end of the snippet. Placeholders with equal identifiers are
      * linked, that is typing in one will update others too.
      */
-    snippetSupport: Option<Boolean>,
+    pub snippetSupport: Option<Boolean>,
 
     /**
      * Client supports commit characters on a completion item.
      */
-    commitCharactersSupport: Option<Boolean>,
+    pub commitCharactersSupport: Option<Boolean>,
 
     /**
      * Client supports the follow content formats for the documentation
      * property. The order describes the preferred format of the client.
      */
-    documentationFormat: Option<Vec<MarkupKind>>,
+    pub documentationFormat: Option<Vec<MarkupKind>>,
 
     /**
      * Client supports the deprecated property on a completion item.
      */
-    deprecatedSupport: Option<Boolean>,
+    pub deprecatedSupport: Option<Boolean>,
 
     /**
      * Client supports the preselect property on a completion item.
      */
-    preselectSupport: Option<Boolean>,
+    pub preselectSupport: Option<Boolean>,
 
     /**
      * Client supports the tag property on a completion item. Clients
@@ -6017,7 +6017,7 @@ pub struct CompletionClientCapabilitiesCompletionItem {
      *
      * @since 3.15.0
      */
-    tagSupport: Option<CompletionItemTagValueSet>,
+    pub tagSupport: Option<CompletionItemTagValueSet>,
 
     /**
      * Client supports insert replace edit to control different behavior if
@@ -6025,7 +6025,7 @@ pub struct CompletionClientCapabilitiesCompletionItem {
      *
      * @since 3.16.0
      */
-    insertReplaceSupport: Option<Boolean>,
+    pub insertReplaceSupport: Option<Boolean>,
 
     /**
      * Indicates which properties a client can resolve lazily on a
@@ -6034,7 +6034,7 @@ pub struct CompletionClientCapabilitiesCompletionItem {
      *
      * @since 3.16.0
      */
-    resolveSupport: Option<ResolveSupportProperties>,
+    pub resolveSupport: Option<ResolveSupportProperties>,
 
     /**
      * The client supports the `insertTextMode` property on
@@ -6043,7 +6043,7 @@ pub struct CompletionClientCapabilitiesCompletionItem {
      *
      * @since 3.16.0
      */
-    insertTextModeSupport: Option<InsertTextModeValueSet>,
+    pub insertTextModeSupport: Option<InsertTextModeValueSet>,
 
     /**
      * The client has support for completion item label
@@ -6051,7 +6051,7 @@ pub struct CompletionClientCapabilitiesCompletionItem {
      *
      * @since 3.17.0
      */
-    labelDetailsSupport: Option<Boolean>,
+    pub labelDetailsSupport: Option<Boolean>,
 }
 
 /// extracts from [CompletionClientCapabilities::completionItemKind]
@@ -6067,7 +6067,7 @@ pub struct CompletionItemKindValueSet {
      * the completion items kinds from `Text` to `Reference` as defined in
      * the initial version of the protocol.
      */
-    valueSet: Option<Vec<CompletionItemKind>>,
+    pub valueSet: Option<Vec<CompletionItemKind>>,
 }
 
 /// extracts from [CompletionClientCapabilities::completionList]
@@ -6083,7 +6083,7 @@ pub struct CompletionClientCapabilitiesCompletionListItemDefaults {
      *
      * @since 3.17.0
      */
-    itemDefaults: Option<Vec<String>>,
+    pub itemDefaults: Option<Vec<String>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -6091,21 +6091,21 @@ pub struct CompletionClientCapabilities {
     /**
      * Whether completion supports dynamic registration.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 
     /**
      * The client supports the following `CompletionItem` specific
      * capabilities.
      */
-    completionItem: Option<CompletionClientCapabilitiesCompletionItem>,
+    pub completionItem: Option<CompletionClientCapabilitiesCompletionItem>,
 
-    completionItemKind: Option<CompletionItemKindValueSet>,
+    pub completionItemKind: Option<CompletionItemKindValueSet>,
 
     /**
      * The client supports to send additional context information for a
      * `textDocument/completion` request.
      */
-    contextSupport: Option<Boolean>,
+    pub contextSupport: Option<Boolean>,
 
     /**
      * The client's default when the completion item doesn't provide a
@@ -6113,7 +6113,7 @@ pub struct CompletionClientCapabilities {
      *
      * @since 3.17.0
      */
-    insertTextMode: Option<InsertTextMode>,
+    pub insertTextMode: Option<InsertTextMode>,
 
     /**
      * The client supports the following `CompletionList` specific
@@ -6121,7 +6121,7 @@ pub struct CompletionClientCapabilities {
      *
      * @since 3.17.0
      */
-    completionList: Option<CompletionClientCapabilitiesCompletionListItemDefaults>,
+    pub completionList: Option<CompletionClientCapabilitiesCompletionListItemDefaults>,
 }
 
 /// extracted from [CompletionOptions::labelDetailsSupport]
@@ -6134,7 +6134,7 @@ pub struct CompletionItemLabelDetailsSupport {
      *
      * @since 3.17.0
      */
-    labelDetailsSupport: Option<Boolean>,
+    pub labelDetailsSupport: Option<Boolean>,
 }
 
 /**
@@ -6143,7 +6143,7 @@ pub struct CompletionItemLabelDetailsSupport {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CompletionOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /**
      * The additional characters, beyond the defaults provided by the client (typically
@@ -6158,7 +6158,7 @@ pub struct CompletionOptions {
      * present `console` besides others as a completion item. Characters that
      * make up identifiers don't need to be listed here.
      */
-    triggerCharacters: Option<Vec<String>>,
+    pub triggerCharacters: Option<Vec<String>>,
 
     /**
      * The list of all possible characters that commit a completion. This field
@@ -6171,13 +6171,13 @@ pub struct CompletionOptions {
      *
      * @since 3.2.0
      */
-    allCommitCharacters: Option<Vec<String>>,
+    pub allCommitCharacters: Option<Vec<String>>,
 
     /**
      * The server provides support to resolve additional
      * information for a completion item.
      */
-    resolveProvider: Option<Boolean>,
+    pub resolveProvider: Option<Boolean>,
 
     /**
      * The server supports the following `CompletionItem` specific
@@ -6185,7 +6185,7 @@ pub struct CompletionOptions {
      *
      * @since 3.17.0
      */
-    completionItem: Option<CompletionItemLabelDetailsSupport>,
+    pub completionItem: Option<CompletionItemLabelDetailsSupport>,
 }
 
 pub struct CompletionRegistrationOptions {
@@ -6194,11 +6194,11 @@ pub struct CompletionRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends CompletionOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /// extends CompletionOptions
     /**
@@ -6214,7 +6214,7 @@ pub struct CompletionRegistrationOptions {
      * present `console` besides others as a completion item. Characters that
      * make up identifiers don't need to be listed here.
      */
-    triggerCharacters: Option<Vec<String>>,
+    pub triggerCharacters: Option<Vec<String>>,
 
     /// extends CompletionOptions
     /**
@@ -6228,14 +6228,14 @@ pub struct CompletionRegistrationOptions {
      *
      * @since 3.2.0
      */
-    allCommitCharacters: Option<Vec<String>>,
+    pub allCommitCharacters: Option<Vec<String>>,
 
     /// extends CompletionOptions
     /**
      * The server provides support to resolve additional
      * information for a completion item.
      */
-    resolveProvider: Option<Boolean>,
+    pub resolveProvider: Option<Boolean>,
 
     /// extends CompletionOptions
     /**
@@ -6244,7 +6244,7 @@ pub struct CompletionRegistrationOptions {
      *
      * @since 3.17.0
      */
-    completionItem: Option<CompletionItemLabelDetailsSupport>,
+    pub completionItem: Option<CompletionItemLabelDetailsSupport>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -6253,33 +6253,33 @@ pub struct CompletionParams {
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /// extends TextDocumentPositionParams
     /**
      * The position inside the text document.
      */
-    position: Position,
+    pub position: Position,
 
     /// extends WorkDoneProgressParams
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 
     /**
      * The completion context. This is only available if the client specifies
      * to send this using the client capability
      * `completion.contextSupport === true`
      */
-    context: Option<CompletionContext>,
+    pub context: Option<CompletionContext>,
 }
 
 /**
@@ -6316,14 +6316,14 @@ pub struct CompletionContext {
     /**
      * How the completion was triggered.
      */
-    triggerKind: CompletionTriggerKind,
+    pub triggerKind: CompletionTriggerKind,
 
     /**
      * The trigger character (a single character) that has trigger code
      * complete. Is undefined if
      * `triggerKind !== CompletionTriggerKind.TriggerCharacter`
      */
-    triggerCharacter: Option<String>,
+    pub triggerCharacter: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -6341,35 +6341,35 @@ pub struct CompletionListItemDefaults {
      *
      * @since 3.17.0
      */
-    commitCharacters: Option<Vec<String>>,
+    pub commitCharacters: Option<Vec<String>>,
 
     /**
      * A default edit range
      *
      * @since 3.17.0
      */
-    editRange: Option<CompletionListItemDefaultsEditRange>,
+    pub editRange: Option<CompletionListItemDefaultsEditRange>,
 
     /**
      * A default insert text format
      *
      * @since 3.17.0
      */
-    insertTextFormat: Option<InsertTextFormat>,
+    pub insertTextFormat: Option<InsertTextFormat>,
 
     /**
      * A default insert text mode
      *
      * @since 3.17.0
      */
-    insertTextMode: Option<InsertTextMode>,
+    pub insertTextMode: Option<InsertTextMode>,
 
     /**
      * A default data value.
      *
      * @since 3.17.0
      */
-    data: Option<LSPAny>,
+    pub data: Option<LSPAny>,
 }
 
 /**
@@ -6385,7 +6385,7 @@ pub struct CompletionList {
      * Recomputed lists have all their items replaced (not appended) in the
      * incomplete completion sessions.
      */
-    isIncomplete: Boolean,
+    pub isIncomplete: Boolean,
 
     /**
      * In many cases the items of an actual completion result share the same
@@ -6402,12 +6402,12 @@ pub struct CompletionList {
      *
      * @since 3.17.0
      */
-    itemDefaults: Option<CompletionListItemDefaults>,
+    pub itemDefaults: Option<CompletionListItemDefaults>,
 
     /**
      * The completion items.
      */
-    items: Vec<CompletionItem>,
+    pub items: Vec<CompletionItem>,
 }
 
 /**
@@ -6458,17 +6458,17 @@ pub struct InsertReplaceEdit {
     /**
      * The String to be inserted.
      */
-    newText: String,
+    pub newText: String,
 
     /**
      * The range if the insert is requested
      */
-    insert: Range,
+    pub insert: Range,
 
     /**
      * The range if the replace is requested.
      */
-    replace: Range,
+    pub replace: Range,
 }
 
 /**
@@ -6512,14 +6512,14 @@ pub struct CompletionItemLabelDetails {
      * {@link CompletionItem.label label}, without any spacing. Should be
      * used for function signatures or type annotations.
      */
-    detail: Option<String>,
+    pub detail: Option<String>,
 
     /**
      * An optional String which is rendered less prominently after
      * {@link CompletionItemLabelDetails.detail}. Should be used for fully qualified
      * names or file path.
      */
-    description: Option<String>,
+    pub description: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -6540,45 +6540,45 @@ pub struct CompletionItem {
      * If label details are provided the label itself should
      * be an unqualified name of the completion item.
      */
-    label: String,
+    pub label: String,
 
     /**
      * Additional details for the label
      *
      * @since 3.17.0
      */
-    labelDetails: Option<CompletionItemLabelDetails>,
+    pub labelDetails: Option<CompletionItemLabelDetails>,
     /**
      * The kind of this completion item. Based of the kind
      * an icon is chosen by the editor. The standardized set
      * of available values is defined in `CompletionItemKind`.
      */
-    kind: Option<CompletionItemKind>,
+    pub kind: Option<CompletionItemKind>,
 
     /**
      * Tags for this completion item.
      *
      * @since 3.15.0
      */
-    tags: Option<Vec<CompletionItemTag>>,
+    pub tags: Option<Vec<CompletionItemTag>>,
 
     /**
      * A human-readable String with additional information
      * about this item, like type or symbol information.
      */
-    detail: Option<String>,
+    pub detail: Option<String>,
 
     /**
      * A human-readable String that represents a doc-comment.
      */
-    documentation: Option<MarkupContentOrString>,
+    pub documentation: Option<MarkupContentOrString>,
 
     /**
      * Indicates if this item is deprecated.
      *
      * @deprecated Use `tags` instead if supported.
      */
-    deprecated: Option<Boolean>,
+    pub deprecated: Option<Boolean>,
 
     /**
      * Select this item when showing.
@@ -6587,21 +6587,21 @@ pub struct CompletionItem {
      * tool / client decides which item that is. The rule is that the *first*
      * item of those that match best is selected.
      */
-    preselect: Option<Boolean>,
+    pub preselect: Option<Boolean>,
 
     /**
      * A String that should be used when comparing this item
      * with other items. When omitted the label is used
      * as the sort text for this item.
      */
-    sortText: Option<String>,
+    pub sortText: Option<String>,
 
     /**
      * A String that should be used when filtering a set of
      * completion items. When omitted the label is used as the
      * filter text for this item.
      */
-    filterText: Option<String>,
+    pub filterText: Option<String>,
 
     /**
      * A String that should be inserted into a document when selecting
@@ -6616,7 +6616,7 @@ pub struct CompletionItem {
      * recommended to use `textEdit` instead since it avoids additional client
      * side interpretation.
      */
-    insertText: Option<String>,
+    pub insertText: Option<String>,
 
     /**
      * The format of the insert text. The format applies to both the
@@ -6626,7 +6626,7 @@ pub struct CompletionItem {
      * Please note that the insertTextFormat doesn't apply to
      * `additionalTextEdits`.
      */
-    insertTextFormat: Option<InsertTextFormat>,
+    pub insertTextFormat: Option<InsertTextFormat>,
 
     /**
      * How whitespace and indentation is handled during completion
@@ -6636,7 +6636,7 @@ pub struct CompletionItem {
      * @since 3.16.0
      * @since 3.17.0 - support for `textDocument.completion.insertTextMode`
      */
-    insertTextMode: Option<InsertTextMode>,
+    pub insertTextMode: Option<InsertTextMode>,
 
     /**
      * An edit which is applied to a document when selecting this completion.
@@ -6662,7 +6662,7 @@ pub struct CompletionItem {
      *
      * @since 3.16.0 additional type `InsertReplaceEdit`
      */
-    textEdit: Option<CompletionItemKind>,
+    pub textEdit: Option<CompletionItemKind>,
 
     /**
      * The edit text used if the completion item is part of a CompletionList and
@@ -6676,7 +6676,7 @@ pub struct CompletionItem {
      *
      * @since 3.17.0
      */
-    textEditText: Option<String>,
+    pub textEditText: Option<String>,
 
     /**
      * An optional array of additional text edits that are applied when
@@ -6687,7 +6687,7 @@ pub struct CompletionItem {
      * current cursor position (for example adding an import statement at the
      * top of the file if the completion item will insert an unqualified type).
      */
-    additionalTextEdits: Option<Vec<TextEdit>>,
+    pub additionalTextEdits: Option<Vec<TextEdit>>,
 
     /**
      * An optional set of characters that when pressed while this completion is
@@ -6695,20 +6695,20 @@ pub struct CompletionItem {
      * commit characters should have `length=1` and that superfluous characters
      * will be ignored.
      */
-    commitCharacters: Option<Vec<String>>,
+    pub commitCharacters: Option<Vec<String>>,
 
     /**
      * An optional command that is executed *after* inserting this completion.
      * *Note* that additional modifications to the current document should be
      * described with the additionalTextEdits-property.
      */
-    command: Option<Command>,
+    pub command: Option<Command>,
 
     /**
      * A data entry field that is preserved on a completion item between
      * a completion and a completion resolve request.
      */
-    data: Option<LSPAny>,
+    pub data: Option<LSPAny>,
 }
 
 /**
@@ -6750,7 +6750,7 @@ pub struct PublishDiagnosticsClientCapabilitiesTagSupport {
     /**
      * The tags supported by the client.
      */
-    valueSet: Vec<DiagnosticTag>,
+    pub valueSet: Vec<DiagnosticTag>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -6758,7 +6758,7 @@ pub struct PublishDiagnosticsClientCapabilities {
     /**
      * Whether the clients accepts diagnostics with related information.
      */
-    relatedInformation: Option<Boolean>,
+    pub relatedInformation: Option<Boolean>,
 
     /**
      * Client supports the tag property to provide meta data about a diagnostic.
@@ -6766,7 +6766,7 @@ pub struct PublishDiagnosticsClientCapabilities {
      *
      * @since 3.15.0
      */
-    tagSupport: Option<PublishDiagnosticsClientCapabilitiesTagSupport>,
+    pub tagSupport: Option<PublishDiagnosticsClientCapabilitiesTagSupport>,
 
     /**
      * Whether the client interprets the version property of the
@@ -6774,14 +6774,14 @@ pub struct PublishDiagnosticsClientCapabilities {
      *
      * @since 3.15.0
      */
-    versionSupport: Option<Boolean>,
+    pub versionSupport: Option<Boolean>,
 
     /**
      * Client supports a codeDescription property
      *
      * @since 3.16.0
      */
-    codeDescriptionSupport: Option<Boolean>,
+    pub codeDescriptionSupport: Option<Boolean>,
 
     /**
      * Whether code action supports the `data` property which is
@@ -6790,7 +6790,7 @@ pub struct PublishDiagnosticsClientCapabilities {
      *
      * @since 3.16.0
      */
-    dataSupport: Option<Boolean>,
+    pub dataSupport: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -6798,7 +6798,7 @@ pub struct PublishDiagnosticsParams {
     /**
      * The URI for which diagnostic information is reported.
      */
-    uri: DocumentUri,
+    pub uri: DocumentUri,
 
     /**
      * Optional the version number of the document the diagnostics are published
@@ -6806,12 +6806,12 @@ pub struct PublishDiagnosticsParams {
      *
      * @since 3.15.0
      */
-    version: Option<Integer>,
+    pub version: Option<Integer>,
 
     /**
      * An array of diagnostic information items.
      */
-    diagnostics: Vec<Diagnostic>,
+    pub diagnostics: Vec<Diagnostic>,
 }
 
 /**
@@ -6827,13 +6827,13 @@ pub struct DiagnosticClientCapabilities {
      * `(TextDocumentRegistrationOptions & StaticRegistrationOptions)`
      * return value for the corresponding server capability as well.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 
     /**
      * Whether the clients supports related documents for document diagnostic
      * pulls.
      */
-    relatedDocumentSupport: Option<Boolean>,
+    pub relatedDocumentSupport: Option<Boolean>,
 }
 
 /**
@@ -6844,13 +6844,13 @@ pub struct DiagnosticClientCapabilities {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct DiagnosticOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /**
      * An optional identifier under which the diagnostics are
      * managed by the client.
      */
-    identifier: Option<String>,
+    pub identifier: Option<String>,
 
     /**
      * Whether the language has inter file dependencies meaning that
@@ -6858,12 +6858,12 @@ pub struct DiagnosticOptions {
      * set in another file. Inter file dependencies are common for
      * most programming languages and typically uncommon for linters.
      */
-    interFileDependencies: Boolean,
+    pub interFileDependencies: Boolean,
 
     /**
      * The server provides support for workspace diagnostics as well.
      */
-    workspaceDiagnostics: Boolean,
+    pub workspaceDiagnostics: Boolean,
 }
 
 /**
@@ -6878,18 +6878,18 @@ pub struct DiagnosticRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends DiagnosticOptions,
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /// extends DiagnosticOptions,
     /**
      * An optional identifier under which the diagnostics are
      * managed by the client.
      */
-    identifier: Option<String>,
+    pub identifier: Option<String>,
 
     /// extends DiagnosticOptions,
     /**
@@ -6898,20 +6898,20 @@ pub struct DiagnosticRegistrationOptions {
      * set in another file. Inter file dependencies are common for
      * most programming languages and typically uncommon for linters.
      */
-    interFileDependencies: Boolean,
+    pub interFileDependencies: Boolean,
 
     /// extends DiagnosticOptions,
     /**
      * The server provides support for workspace diagnostics as well.
      */
-    workspaceDiagnostics: Boolean,
+    pub workspaceDiagnostics: Boolean,
 
     /// extends StaticRegistrationOptions
     /**
      * The id used to register the request. The id can be used to deregister
      * the request again. See also Registration#id.
      */
-    id: Option<String>,
+    pub id: Option<String>,
 }
 
 /**
@@ -6925,29 +6925,29 @@ pub struct DocumentDiagnosticParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /**
      * The additional identifier  provided during registration.
      */
-    identifier: Option<String>,
+    pub identifier: Option<String>,
 
     /**
      * The result id of a previous response if provided.
      */
-    previousResultId: Option<String>,
+    pub previousResultId: Option<String>,
 }
 
 /**
@@ -6998,19 +6998,19 @@ pub struct FullDocumentDiagnosticReport {
      * A full document diagnostic report.
      */
     /// default = DocumentDiagnosticReportKind.Full
-    kind: DocumentDiagnosticReportKind,
+    pub kind: DocumentDiagnosticReportKind,
 
     /**
      * An optional result id. If provided it will
      * be sent on the next diagnostic request for the
      * same document.
      */
-    resultId: Option<String>,
+    pub resultId: Option<String>,
 
     /**
      * The actual items.
      */
-    items: Vec<Diagnostic>,
+    pub items: Vec<Diagnostic>,
 }
 
 /**
@@ -7028,13 +7028,13 @@ pub struct UnchangedDocumentDiagnosticReport {
      * provided.
      */
     /// default = DocumentDiagnosticReportKind.Unchanged
-    kind: DocumentDiagnosticReportKind,
+    pub kind: DocumentDiagnosticReportKind,
 
     /**
      * A result id which will be sent on the next
      * diagnostic request for the same document.
      */
-    resultId: String,
+    pub resultId: String,
 }
 
 /**
@@ -7049,7 +7049,7 @@ pub struct RelatedFullDocumentDiagnosticReport {
      * A full document diagnostic report.
      */
     /// default = DocumentDiagnosticReportKind.Full
-    kind: DocumentDiagnosticReportKind,
+    pub kind: DocumentDiagnosticReportKind,
 
     /// extends FullDocumentDiagnosticReport
     /**
@@ -7057,13 +7057,13 @@ pub struct RelatedFullDocumentDiagnosticReport {
      * be sent on the next diagnostic request for the
      * same document.
      */
-    resultId: Option<String>,
+    pub resultId: Option<String>,
 
     /// extends FullDocumentDiagnosticReport
     /**
      * The actual items.
      */
-    items: Vec<Diagnostic>,
+    pub items: Vec<Diagnostic>,
 
     /**
      * Diagnostics of related documents. This information is useful
@@ -7078,7 +7078,7 @@ pub struct RelatedFullDocumentDiagnosticReport {
     //     [uri: String /** DocumentUri */]:
     //         FullDocumentDiagnosticReport | UnchangedDocumentDiagnosticReport,
     // },
-    relatedDocuments: Option<BTreeMap<DocumentUri, DocumentDiagnosticReportKind>>,
+    pub relatedDocuments: Option<BTreeMap<DocumentUri, DocumentDiagnosticReportKind>>,
 }
 
 /**
@@ -7096,14 +7096,14 @@ pub struct RelatedUnchangedDocumentDiagnosticReport {
      * provided.
      */
     /// default = DocumentDiagnosticReportKind.Unchanged
-    kind: DocumentDiagnosticReportKind,
+    pub kind: DocumentDiagnosticReportKind,
 
     /// extends UnchangedDocumentDiagnosticReport
     /**
      * A result id which will be sent on the next
      * diagnostic request for the same document.
      */
-    resultId: String,
+    pub resultId: String,
     /**
      * Diagnostics of related documents. This information is useful
      * in programming languages where code in a file A can generate
@@ -7117,7 +7117,7 @@ pub struct RelatedUnchangedDocumentDiagnosticReport {
     //     [uri: String /** DocumentUri */]:
     //         FullDocumentDiagnosticReport | UnchangedDocumentDiagnosticReport,
     // },
-    relatedDocuments: Option<BTreeMap<DocumentUri, DocumentDiagnosticReportKind>>,
+    pub relatedDocuments: Option<BTreeMap<DocumentUri, DocumentDiagnosticReportKind>>,
 }
 
 /**
@@ -7127,11 +7127,11 @@ pub struct RelatedUnchangedDocumentDiagnosticReport {
  */
 #[derive(Serialize, Deserialize, Debug)]
 pub struct DocumentDiagnosticReportPartialResult {
-    //     relatedDocuments: {
+    //     pub relatedDocuments: {
     //         [uri: String /** DocumentUri */]:
     //             FullDocumentDiagnosticReport | UnchangedDocumentDiagnosticReport,
     //     },
-    relatedDocuments: Option<BTreeMap<DocumentUri, DocumentDiagnosticReportKind>>,
+    pub relatedDocuments: Option<BTreeMap<DocumentUri, DocumentDiagnosticReportKind>>,
 }
 
 /**
@@ -7141,7 +7141,7 @@ pub struct DocumentDiagnosticReportPartialResult {
  */
 #[derive(Serialize, Deserialize, Debug)]
 pub struct DiagnosticServerCancellationData {
-    retriggerRequest: Boolean,
+    pub retriggerRequest: Boolean,
 }
 
 /**
@@ -7155,25 +7155,25 @@ pub struct WorkspaceDiagnosticParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 
     /**
      * The additional identifier provided during registration.
      */
-    identifier: Option<String>,
+    pub identifier: Option<String>,
 
     /**
      * The currently known diagnostic reports with their
      * previous result ids.
      */
-    previousResultIds: Vec<PreviousResultId>,
+    pub previousResultIds: Vec<PreviousResultId>,
 }
 
 /**
@@ -7187,12 +7187,12 @@ pub struct PreviousResultId {
      * The URI for which the client knows a
      * result id.
      */
-    uri: DocumentUri,
+    pub uri: DocumentUri,
 
     /**
      * The value of the previous result id.
      */
-    value: String,
+    pub value: String,
 }
 
 /**
@@ -7202,7 +7202,7 @@ pub struct PreviousResultId {
  */
 #[derive(Serialize, Deserialize, Debug)]
 pub struct WorkspaceDiagnosticReport {
-    items: Vec<WorkspaceDocumentDiagnosticReport>,
+    pub items: Vec<WorkspaceDocumentDiagnosticReport>,
 }
 
 /**
@@ -7217,7 +7217,7 @@ pub struct WorkspaceFullDocumentDiagnosticReport {
      * A full document diagnostic report.
      */
     /// default = DocumentDiagnosticReportKind.Full
-    kind: DocumentDiagnosticReportKind,
+    pub kind: DocumentDiagnosticReportKind,
 
     /// extends FullDocumentDiagnosticReport
     /**
@@ -7225,24 +7225,24 @@ pub struct WorkspaceFullDocumentDiagnosticReport {
      * be sent on the next diagnostic request for the
      * same document.
      */
-    resultId: Option<String>,
+    pub resultId: Option<String>,
 
     /// extends FullDocumentDiagnosticReport
     /**
      * The actual items.
      */
-    items: Vec<Diagnostic>,
+    pub items: Vec<Diagnostic>,
 
     /**
      * The URI for which diagnostic information is reported.
      */
-    uri: DocumentUri,
+    pub uri: DocumentUri,
 
     /**
      * The version number for which the diagnostics are reported.
      * If the document is not marked as open `null` can be provided.
      */
-    version: Option<Integer>,
+    pub version: Option<Integer>,
 }
 
 /**
@@ -7260,25 +7260,25 @@ pub struct WorkspaceUnchangedDocumentDiagnosticReport {
      * provided.
      */
     /// default = DocumentDiagnosticReportKind.Unchanged
-    kind: DocumentDiagnosticReportKind,
+    pub kind: DocumentDiagnosticReportKind,
 
     /// extends UnchangedDocumentDiagnosticReport
     /**
      * A result id which will be sent on the next
      * diagnostic request for the same document.
      */
-    resultId: String,
+    pub resultId: String,
 
     /**
      * The URI for which diagnostic information is reported.
      */
-    uri: DocumentUri,
+    pub uri: DocumentUri,
 
     /**
      * The version number for which the diagnostics are reported.
      * If the document is not marked as open `null` can be provided.
      */
-    version: Option<Integer>,
+    pub version: Option<Integer>,
 }
 
 /**
@@ -7300,7 +7300,7 @@ pub enum WorkspaceDocumentDiagnosticReport {
  */
 #[derive(Serialize, Deserialize, Debug)]
 pub struct WorkspaceDiagnosticReportPartialResult {
-    items: Vec<WorkspaceDocumentDiagnosticReport>,
+    pub items: Vec<WorkspaceDocumentDiagnosticReport>,
 }
 
 /**
@@ -7319,7 +7319,7 @@ pub struct DiagnosticWorkspaceClientCapabilities {
      * and is useful for situation where a server for example detects a project
      * wide change that requires such a calculation.
      */
-    refreshSupport: Option<Boolean>,
+    pub refreshSupport: Option<Boolean>,
 }
 
 /// extends from [SignatureHelpClientCapabilitiesSignatureInformation::parameterInformation]
@@ -7331,7 +7331,7 @@ pub struct SignatureHelpClientCapabilitiesSignatureInformationParameterInformati
      *
      * @since 3.14.0
      */
-    labelOffsetSupport: Option<Boolean>,
+    pub labelOffsetSupport: Option<Boolean>,
 }
 
 /// extends from [SignatureHelpClientCapabilities::signatureInformation]
@@ -7341,12 +7341,12 @@ pub struct SignatureHelpClientCapabilitiesSignatureInformation {
      * Client supports the follow content formats for the documentation
      * property. The order describes the preferred format of the client.
      */
-    documentationFormat: Option<Vec<MarkupKind>>,
+    pub documentationFormat: Option<Vec<MarkupKind>>,
 
     /**
      * Client capabilities specific to parameter information.
      */
-    parameterInformation:
+    pub parameterInformation:
         Option<SignatureHelpClientCapabilitiesSignatureInformationParameterInformation>,
 
     /**
@@ -7355,7 +7355,7 @@ pub struct SignatureHelpClientCapabilitiesSignatureInformation {
      *
      * @since 3.16.0
      */
-    activeParameterSupport: Option<Boolean>,
+    pub activeParameterSupport: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -7363,13 +7363,13 @@ pub struct SignatureHelpClientCapabilities {
     /**
      * Whether signature help supports dynamic registration.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 
     /**
      * The client supports the following `SignatureInformation`
      * specific properties.
      */
-    signatureInformation: Option<SignatureHelpClientCapabilitiesSignatureInformation>,
+    pub signatureInformation: Option<SignatureHelpClientCapabilitiesSignatureInformation>,
 
     /**
      * The client supports to send additional context information for a
@@ -7379,19 +7379,19 @@ pub struct SignatureHelpClientCapabilities {
      *
      * @since 3.15.0
      */
-    contextSupport: Option<Boolean>,
+    pub contextSupport: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SignatureHelpOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /**
      * The characters that trigger signature help
      * automatically.
      */
-    triggerCharacters: Option<Vec<String>>,
+    pub triggerCharacters: Option<Vec<String>>,
 
     /**
      * List of characters that re-trigger signature help.
@@ -7402,7 +7402,7 @@ pub struct SignatureHelpOptions {
      *
      * @since 3.15.0
      */
-    retriggerCharacters: Option<Vec<String>>,
+    pub retriggerCharacters: Option<Vec<String>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -7412,18 +7412,18 @@ pub struct SignatureHelpRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extend SignatureHelpOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /// extend SignatureHelpOptions
     /**
      * The characters that trigger signature help
      * automatically.
      */
-    triggerCharacters: Option<Vec<String>>,
+    pub triggerCharacters: Option<Vec<String>>,
 
     /// extend SignatureHelpOptions
     /**
@@ -7435,7 +7435,7 @@ pub struct SignatureHelpRegistrationOptions {
      *
      * @since 3.15.0
      */
-    retriggerCharacters: Option<Vec<String>>,
+    pub retriggerCharacters: Option<Vec<String>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -7444,19 +7444,19 @@ pub struct SignatureHelpParams {
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /// extends TextDocumentPositionParams
     /**
      * The position inside the text document.
      */
-    position: Position,
+    pub position: Position,
 
     /// extends WorkDoneProgressParams
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /**
      * The signature help context. This is only available if the client
@@ -7465,7 +7465,7 @@ pub struct SignatureHelpParams {
      *
      * @since 3.15.0
      */
-    context: Option<SignatureHelpContext>,
+    pub context: Option<SignatureHelpContext>,
 }
 
 /**
@@ -7502,7 +7502,7 @@ pub struct SignatureHelpContext {
     /**
      * Action that caused signature help to be triggered.
      */
-    triggerKind: SignatureHelpTriggerKind,
+    pub triggerKind: SignatureHelpTriggerKind,
 
     /**
      * Character that caused signature help to be triggered.
@@ -7510,7 +7510,7 @@ pub struct SignatureHelpContext {
      * This is undefined when triggerKind !==
      * SignatureHelpTriggerKind.TriggerCharacter
      */
-    triggerCharacter: Option<String>,
+    pub triggerCharacter: Option<String>,
 
     /**
      * `true` if signature help was already showing when it was triggered.
@@ -7519,7 +7519,7 @@ pub struct SignatureHelpContext {
      * caused by actions such as typing a trigger character, a cursor move, or
      * document content changes.
      */
-    isRetrigger: Boolean,
+    pub isRetrigger: Boolean,
 
     /**
      * The currently active `SignatureHelp`.
@@ -7527,7 +7527,7 @@ pub struct SignatureHelpContext {
      * The `activeSignatureHelp` has its `SignatureHelp.activeSignature` field
      * updated based on the user navigating through available signatures.
      */
-    activeSignatureHelp: Option<SignatureHelp>,
+    pub activeSignatureHelp: Option<SignatureHelp>,
 }
 
 /**
@@ -7541,7 +7541,7 @@ pub struct SignatureHelp {
      * One or more signatures. If no signatures are available the signature help
      * request should return `null`.
      */
-    signatures: Vec<SignatureInformation>,
+    pub signatures: Vec<SignatureInformation>,
 
     /**
      * The active signature. If omitted or the value lies outside the
@@ -7554,7 +7554,7 @@ pub struct SignatureHelp {
      * In future version of the protocol this property might become
      * mandatory to better express this.
      */
-    activeSignature: Option<UInteger>,
+    pub activeSignature: Option<UInteger>,
 
     /**
      * The active parameter of the active signature. If omitted or the value
@@ -7565,7 +7565,7 @@ pub struct SignatureHelp {
      * mandatory to better express the active parameter if the
      * active signature does have any.
      */
-    activeParameter: Option<UInteger>,
+    pub activeParameter: Option<UInteger>,
 }
 
 /**
@@ -7579,18 +7579,18 @@ pub struct SignatureInformation {
      * The label of this signature. Will be shown in
      * the UI.
      */
-    label: String,
+    pub label: String,
 
     /**
      * The human-readable doc-comment of this signature. Will be shown
      * in the UI but can be omitted.
      */
-    documentation: Option<MarkupContentOrString>,
+    pub documentation: Option<MarkupContentOrString>,
 
     /**
      * The parameters of this signature.
      */
-    parameters: Option<Vec<ParameterInformation>>,
+    pub parameters: Option<Vec<ParameterInformation>>,
 
     /**
      * The index of the active parameter.
@@ -7599,7 +7599,7 @@ pub struct SignatureInformation {
      *
      * @since 3.16.0
      */
-    activeParameter: Option<UInteger>,
+    pub activeParameter: Option<UInteger>,
 }
 
 /// extracted from [ParameterInformation::label]
@@ -7637,13 +7637,13 @@ pub struct ParameterInformation {
      * label part in the `SignatureInformation.label`.
      */
     // label: String | [UInteger, UInteger],
-    label: ParameterInformationLabel,
+    pub label: ParameterInformationLabel,
 
     /**
      * The human-readable doc-comment of this parameter. Will be shown
      * in the UI but can be omitted.
      */
-    documentation: Option<MarkupContentOrString>,
+    pub documentation: Option<MarkupContentOrString>,
 }
 
 /// extracted from [CodeActionClientCapabilities::resolveSupport]
@@ -7652,7 +7652,7 @@ pub struct CodeActionClientCapabilitiesResolveSupport {
     /**
      * The properties that a client can resolve lazily.
      */
-    properties: Vec<String>,
+    pub properties: Vec<String>,
 }
 
 /// extracted from [CodeActionClientCapabilities::codeActionLiteralSupport]
@@ -7664,7 +7664,7 @@ pub struct CodeActionClientCapabilitiesCodeActionKind {
      * handle values outside its set gracefully and falls back
      * to a default value when unknown.
      */
-    valueSet: Vec<CodeActionKind>,
+    pub valueSet: Vec<CodeActionKind>,
 }
 
 /// extracted from [CodeActionClientCapabilities::codeActionLiteralSupport]
@@ -7674,7 +7674,7 @@ pub struct CodeActionClientCapabilitiesCodeActionLiteralSupport {
      * The code action kind is supported with the following value
      * set.
      */
-    codeActionKind: CodeActionClientCapabilitiesCodeActionKind,
+    pub codeActionKind: CodeActionClientCapabilitiesCodeActionKind,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -7682,7 +7682,7 @@ pub struct CodeActionClientCapabilities {
     /**
      * Whether code action supports dynamic registration.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 
     /**
      * The client supports code action literals as a valid
@@ -7690,21 +7690,21 @@ pub struct CodeActionClientCapabilities {
      *
      * @since 3.8.0
      */
-    codeActionLiteralSupport: Option<CodeActionClientCapabilitiesCodeActionLiteralSupport>,
+    pub codeActionLiteralSupport: Option<CodeActionClientCapabilitiesCodeActionLiteralSupport>,
 
     /**
      * Whether code action supports the `isPreferred` property.
      *
      * @since 3.15.0
      */
-    isPreferredSupport: Option<Boolean>,
+    pub isPreferredSupport: Option<Boolean>,
 
     /**
      * Whether code action supports the `disabled` property.
      *
      * @since 3.16.0
      */
-    disabledSupport: Option<Boolean>,
+    pub disabledSupport: Option<Boolean>,
 
     /**
      * Whether code action supports the `data` property which is
@@ -7713,14 +7713,14 @@ pub struct CodeActionClientCapabilities {
      *
      * @since 3.16.0
      */
-    dataSupport: Option<Boolean>,
+    pub dataSupport: Option<Boolean>,
     /**
      * Whether the client supports resolving additional code action
      * properties via a separate `codeAction/resolve` request.
      *
      * @since 3.16.0
      */
-    resolveSupport: Option<CodeActionClientCapabilitiesResolveSupport>,
+    pub resolveSupport: Option<CodeActionClientCapabilitiesResolveSupport>,
 
     /**
      * Whether the client honors the change annotations in
@@ -7731,13 +7731,13 @@ pub struct CodeActionClientCapabilities {
      *
      * @since 3.16.0
      */
-    honorsChangeAnnotations: Option<Boolean>,
+    pub honorsChangeAnnotations: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CodeActionOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /**
      * CodeActionKinds that this server may return.
@@ -7745,7 +7745,7 @@ pub struct CodeActionOptions {
      * The list of kinds may be generic, such as `CodeActionKind.Refactor`,
      * or the server may list out every specific kind they provide.
      */
-    codeActionKinds: Option<Vec<CodeActionKind>>,
+    pub codeActionKinds: Option<Vec<CodeActionKind>>,
 
     /**
      * The server provides support to resolve additional
@@ -7753,7 +7753,7 @@ pub struct CodeActionOptions {
      *
      * @since 3.16.0
      */
-    resolveProvider: Option<Boolean>,
+    pub resolveProvider: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -7763,11 +7763,11 @@ pub struct CodeActionRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends CodeActionOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /// extends CodeActionOptions
     /**
@@ -7776,7 +7776,7 @@ pub struct CodeActionRegistrationOptions {
      * The list of kinds may be generic, such as `CodeActionKind.Refactor`,
      * or the server may list out every specific kind they provide.
      */
-    codeActionKinds: Option<Vec<CodeActionKind>>,
+    pub codeActionKinds: Option<Vec<CodeActionKind>>,
 
     /// extends CodeActionOptions
     /**
@@ -7785,7 +7785,7 @@ pub struct CodeActionRegistrationOptions {
      *
      * @since 3.16.0
      */
-    resolveProvider: Option<Boolean>,
+    pub resolveProvider: Option<Boolean>,
 }
 
 /**
@@ -7797,28 +7797,28 @@ pub struct CodeActionParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
     /**
      * The document in which the command was invoked.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /**
      * The range for which the command was invoked.
      */
-    range: Range,
+    pub range: Range,
 
     /**
      * Context carrying additional information.
      */
-    context: CodeActionContext,
+    pub context: CodeActionContext,
 }
 
 /**
@@ -7937,7 +7937,7 @@ pub struct CodeActionContext {
      * the error state of the resource. The primary parameter
      * to compute code actions is the provided range.
      */
-    diagnostics: Vec<Diagnostic>,
+    pub diagnostics: Vec<Diagnostic>,
 
     /**
      * Requested kind of actions to return.
@@ -7945,14 +7945,14 @@ pub struct CodeActionContext {
      * Actions not of this kind are filtered out by the client before being
      * shown. So servers can omit computing them.
      */
-    only: Option<Vec<CodeActionKind>>,
+    pub only: Option<Vec<CodeActionKind>>,
 
     /**
      * The reason why code actions were requested.
      *
      * @since 3.17.0
      */
-    triggerKind: Option<CodeActionTriggerKind>,
+    pub triggerKind: Option<CodeActionTriggerKind>,
 }
 
 /**
@@ -7986,7 +7986,7 @@ pub struct CodeActionDisabled {
      *
      * This is displayed in the code actions UI.
      */
-    reason: String,
+    pub reason: String,
 }
 
 /**
@@ -8001,19 +8001,19 @@ pub struct CodeAction {
     /**
      * A short, human-readable, title for this code action.
      */
-    title: String,
+    pub title: String,
 
     /**
      * The kind of the code action.
      *
      * Used to filter code actions.
      */
-    kind: Option<CodeActionKind>,
+    pub kind: Option<CodeActionKind>,
 
     /**
      * The diagnostics that this code action resolves.
      */
-    diagnostics: Option<Vec<Diagnostic>>,
+    pub diagnostics: Option<Vec<Diagnostic>>,
 
     /**
      * Marks this as a preferred action. Preferred actions are used by the
@@ -8025,7 +8025,7 @@ pub struct CodeAction {
      *
      * @since 3.15.0
      */
-    isPreferred: Option<Boolean>,
+    pub isPreferred: Option<Boolean>,
 
     /**
      * Marks that the code action cannot currently be applied.
@@ -8046,19 +8046,19 @@ pub struct CodeAction {
      *
      * @since 3.16.0
      */
-    disabled: Option<CodeActionDisabled>,
+    pub disabled: Option<CodeActionDisabled>,
 
     /**
      * The workspace edit this code action performs.
      */
-    edit: Option<WorkspaceEdit>,
+    pub edit: Option<WorkspaceEdit>,
 
     /**
      * A command this code action executes. If a code action
      * provides an edit and a command, first the edit is
      * executed and then the command.
      */
-    command: Option<Command>,
+    pub command: Option<Command>,
 
     /**
      * A data entry field that is preserved on a code action between
@@ -8066,7 +8066,7 @@ pub struct CodeAction {
      *
      * @since 3.16.0
      */
-    data: Option<LSPAny>,
+    pub data: Option<LSPAny>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8074,13 +8074,13 @@ pub struct DocumentColorClientCapabilities {
     /**
      * Whether document color supports dynamic registration.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct DocumentColorOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8090,18 +8090,18 @@ pub struct DocumentColorRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends StaticRegistrationOptions
     /**
      * The id used to register the request. The id can be used to deregister
      * the request again. See also Registration#id.
      */
-    id: Option<String>,
+    pub id: Option<String>,
 
     /// extends DocumentColorOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8110,19 +8110,19 @@ pub struct DocumentColorParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8130,12 +8130,12 @@ pub struct ColorInformation {
     /**
      * The range in the document where this color appears.
      */
-    range: Range,
+    pub range: Range,
 
     /**
      * The actual color value for this color range.
      */
-    color: Color,
+    pub color: Color,
 }
 
 /**
@@ -8147,25 +8147,25 @@ pub struct Color {
      * The red component of this color in the range [0-1].
      */
     /// **readonly**
-    red: Decimal,
+    pub red: Decimal,
 
     /**
      * The green component of this color in the range [0-1].
      */
     /// **readonly**
-    green: Decimal,
+    pub green: Decimal,
 
     /**
      * The blue component of this color in the range [0-1].
      */
     /// **readonly**
-    blue: Decimal,
+    pub blue: Decimal,
 
     /**
      * The alpha component of this color in the range [0-1].
      */
     /// **readonly**
-    alpha: Decimal,
+    pub alpha: Decimal,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8174,29 +8174,29 @@ pub struct ColorPresentationParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /**
      * The color information to request presentations for.
      */
-    color: Color,
+    pub color: Color,
 
     /**
      * The range where the color would be inserted. Serves as a context.
      */
-    range: Range,
+    pub range: Range,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8206,19 +8206,19 @@ pub struct ColorPresentation {
      * picker header. By default this is also the text that is inserted when
      * selecting this color presentation.
      */
-    label: String,
+    pub label: String,
     /**
      * An [edit](#TextEdit) which is applied to a document when selecting
      * this presentation for the color. When omitted the
      * [label](#ColorPresentation.label) is used.
      */
-    textEdit: Option<TextEdit>,
+    pub textEdit: Option<TextEdit>,
     /**
      * An optional array of additional [text edits](#TextEdit) that are applied
      * when selecting this color presentation. Edits must not overlap with the
      * main [edit](#ColorPresentation.textEdit) nor with themselves.
      */
-    additionalTextEdits: Option<Vec<TextEdit>>,
+    pub additionalTextEdits: Option<Vec<TextEdit>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8226,13 +8226,13 @@ pub struct DocumentFormattingClientCapabilities {
     /**
      * Whether formatting supports dynamic registration.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct DocumentFormattingOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8242,11 +8242,11 @@ pub struct DocumentFormattingRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends DocumentFormattingOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8255,17 +8255,17 @@ pub struct DocumentFormattingParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /**
      * The document to format.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /**
      * The format options.
      */
-    options: FormattingOptions,
+    pub options: FormattingOptions,
 }
 
 /**
@@ -8276,40 +8276,40 @@ pub struct FormattingOptions {
     /**
      * Size of a tab in spaces.
      */
-    tabSize: UInteger,
+    pub tabSize: UInteger,
 
     /**
      * Prefer spaces over tabs.
      */
-    insertSpaces: Boolean,
+    pub insertSpaces: Boolean,
 
     /**
      * Trim trailing whitespace on a line.
      *
      * @since 3.15.0
      */
-    trimTrailingWhitespace: Option<Boolean>,
+    pub trimTrailingWhitespace: Option<Boolean>,
 
     /**
      * Insert a newline character at the end of the file if one does not exist.
      *
      * @since 3.15.0
      */
-    insertFinalNewline: Option<Boolean>,
+    pub insertFinalNewline: Option<Boolean>,
 
     /**
      * Trim all newlines after the final newline at the end of the file.
      *
      * @since 3.15.0
      */
-    trimFinalNewlines: Option<Boolean>,
+    pub trimFinalNewlines: Option<Boolean>,
 
     /**
      * Signature for further properties.
      */
     /// [key: String]: Boolean | Integer | String,
     #[serde(flatten)]
-    additional_properties: BTreeMap<String, Value>,
+    pub additional_properties: BTreeMap<String, Value>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8317,13 +8317,13 @@ pub struct DocumentRangeFormattingClientCapabilities {
     /**
      * Whether formatting supports dynamic registration.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct DocumentRangeFormattingOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8333,11 +8333,11 @@ pub struct DocumentRangeFormattingRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends DocumentRangeFormattingOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8346,22 +8346,22 @@ pub struct DocumentRangeFormattingParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /**
      * The document to format.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /**
      * The range to format
      */
-    range: Range,
+    pub range: Range,
 
     /**
      * The format options
      */
-    options: FormattingOptions,
+    pub options: FormattingOptions,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8369,7 +8369,7 @@ pub struct DocumentOnTypeFormattingClientCapabilities {
     /**
      * Whether on type formatting supports dynamic registration.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8377,12 +8377,12 @@ pub struct DocumentOnTypeFormattingOptions {
     /**
      * A character on which formatting should be triggered, like `{`.
      */
-    firstTriggerCharacter: String,
+    pub firstTriggerCharacter: String,
 
     /**
      * More trigger characters.
      */
-    moreTriggerCharacter: Option<Vec<String>>,
+    pub moreTriggerCharacter: Option<Vec<String>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8392,18 +8392,18 @@ pub struct DocumentOnTypeFormattingRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends DocumentOnTypeFormattingOptions
     /**
      * A character on which formatting should be triggered, like `{`.
      */
-    firstTriggerCharacter: String,
+    pub firstTriggerCharacter: String,
 
     /**
      * More trigger characters.
      */
-    moreTriggerCharacter: Option<Vec<String>>,
+    pub moreTriggerCharacter: Option<Vec<String>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8411,14 +8411,14 @@ pub struct DocumentOnTypeFormattingParams {
     /**
      * The document to format.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /**
      * The position around which the on type formatting should happen.
      * This is not necessarily the exact position where the character denoted
      * by the property `ch` got typed.
      */
-    position: Position,
+    pub position: Position,
 
     /**
      * The character that has been typed that triggered the formatting
@@ -8426,12 +8426,12 @@ pub struct DocumentOnTypeFormattingParams {
      * got inserted into the document since the client could auto insert
      * characters as well (e.g. like automatic brace completion).
      */
-    ch: String,
+    pub ch: String,
 
     /**
      * The formatting options.
      */
-    options: FormattingOptions,
+    pub options: FormattingOptions,
 }
 
 #[derive(Serialize_repr, Deserialize_repr, Debug)]
@@ -8449,7 +8449,7 @@ pub struct RenameClientCapabilities {
     /**
      * Whether rename supports dynamic registration.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 
     /**
      * Client supports testing for validity of rename operations
@@ -8457,7 +8457,7 @@ pub struct RenameClientCapabilities {
      *
      * @since version 3.12.0
      */
-    prepareSupport: Option<Boolean>,
+    pub prepareSupport: Option<Boolean>,
 
     /**
      * Client supports the default behavior result
@@ -8468,7 +8468,7 @@ pub struct RenameClientCapabilities {
      *
      * @since version 3.16.0
      */
-    prepareSupportDefaultBehavior: Option<PrepareSupportDefaultBehavior>,
+    pub prepareSupportDefaultBehavior: Option<PrepareSupportDefaultBehavior>,
 
     /**
      * Whether the client honors the change annotations in
@@ -8479,18 +8479,18 @@ pub struct RenameClientCapabilities {
      *
      * @since 3.16.0
      */
-    honorsChangeAnnotations: Option<Boolean>,
+    pub honorsChangeAnnotations: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct RenameOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /**
      * Renames should be checked and tested before being executed.
      */
-    prepareProvider: Option<Boolean>,
+    pub prepareProvider: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8500,16 +8500,16 @@ pub struct RenameRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends RenameOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /**
      * Renames should be checked and tested before being executed.
      */
-    prepareProvider: Option<Boolean>,
+    pub prepareProvider: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8518,26 +8518,26 @@ pub struct RenameParams {
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /// extends TextDocumentPositionParams
     /**
      * The position inside the text document.
      */
-    position: Position,
+    pub position: Position,
 
     /// extends WorkDoneProgressParams
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /**
      * The new name of the symbol. If the given name is not valid the
      * request must return a [ResponseError](#ResponseError) with an
      * appropriate message set.
      */
-    newName: String,
+    pub newName: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8546,19 +8546,19 @@ pub struct PrepareRenameParams {
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /// extends TextDocumentPositionParams
     /**
      * The position inside the text document.
      */
-    position: Position,
+    pub position: Position,
 
     /// extends WorkDoneProgressParams
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8569,13 +8569,13 @@ pub struct LinkedEditingRangeClientCapabilities {
      * `(TextDocumentRegistrationOptions & StaticRegistrationOptions)`
      * return value for the corresponding server capability as well.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct LinkedEditingRangeOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8585,18 +8585,18 @@ pub struct LinkedEditingRangeRegistrationOptions {
      * A document selector to identify the scope of the registration. If set to
      * null the document selector provided on the client side will be used.
      */
-    documentSelector: Option<DocumentSelector>,
+    pub documentSelector: Option<DocumentSelector>,
 
     /// extends LinkedEditingRangeOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /// extends StaticRegistrationOptions
     /**
      * The id used to register the request. The id can be used to deregister
      * the request again. See also Registration#id.
      */
-    id: Option<String>,
+    pub id: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8605,19 +8605,19 @@ pub struct LinkedEditingRangeParams {
     /**
      * The text document.
      */
-    textDocument: TextDocumentIdentifier,
+    pub textDocument: TextDocumentIdentifier,
 
     /// extends TextDocumentPositionParams
     /**
      * The position inside the text document.
      */
-    position: Position,
+    pub position: Position,
 
     /// extends WorkDoneProgressParams
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8627,14 +8627,14 @@ pub struct LinkedEditingRanges {
      * identical length and contain identical text content. The ranges cannot
      * overlap.
      */
-    ranges: Vec<Range>,
+    pub ranges: Vec<Range>,
 
     /**
      * An optional word pattern (regular expression) that describes valid
      * contents for the given ranges. If no pattern is provided, the client
      * configuration's word pattern will be used.
      */
-    wordPattern: Option<String>,
+    pub wordPattern: Option<String>,
 }
 
 /// extracted from WorkspaceSymbolClientCapabilities
@@ -8650,7 +8650,7 @@ pub struct WorkspaceSymbolClientCapabilitiesSymbolKind {
      * the symbol kinds from `File` to `Array` as defined in
      * the initial version of the protocol.
      */
-    valueSet: Option<Vec<SymbolKind>>,
+    pub valueSet: Option<Vec<SymbolKind>>,
 }
 
 /// extracted from WorkspaceSymbolClientCapabilities
@@ -8659,7 +8659,7 @@ pub struct WorkspaceSymbolClientCapabilitiesTagSupport {
     /**
      * The tags supported by the client.
      */
-    valueSet: Vec<SymbolTag>,
+    pub valueSet: Vec<SymbolTag>,
 }
 
 /// extracted from WorkspaceSymbolClientCapabilities
@@ -8669,7 +8669,7 @@ pub struct WorkspaceSymbolClientCapabilitiesResolveSupport {
      * The properties that a client can resolve lazily. Usually
      * `location.range`
      */
-    properties: Vec<String>,
+    pub properties: Vec<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8677,13 +8677,13 @@ pub struct WorkspaceSymbolClientCapabilities {
     /**
      * Symbol request supports dynamic registration.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 
     /**
      * Specific capabilities for the `SymbolKind` in the `workspace/symbol`
      * request.
      */
-    symbolKind: Option<WorkspaceSymbolClientCapabilitiesSymbolKind>,
+    pub symbolKind: Option<WorkspaceSymbolClientCapabilitiesSymbolKind>,
 
     /**
      * The client supports tags on `SymbolInformation` and `WorkspaceSymbol`.
@@ -8691,7 +8691,7 @@ pub struct WorkspaceSymbolClientCapabilities {
      *
      * @since 3.16.0
      */
-    tagSupport: Option<WorkspaceSymbolClientCapabilitiesTagSupport>,
+    pub tagSupport: Option<WorkspaceSymbolClientCapabilitiesTagSupport>,
 
     /**
      * The client support partial workspace symbols. The client will send the
@@ -8700,13 +8700,13 @@ pub struct WorkspaceSymbolClientCapabilities {
      *
      * @since 3.17.0 - proposedState
      */
-    resolveSupport: Option<WorkspaceSymbolClientCapabilitiesResolveSupport>,
+    pub resolveSupport: Option<WorkspaceSymbolClientCapabilitiesResolveSupport>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct WorkspaceSymbolOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /**
      * The server provides support to resolve additional
@@ -8714,14 +8714,14 @@ pub struct WorkspaceSymbolOptions {
      *
      * @since 3.17.0
      */
-    resolveProvider: Option<Boolean>,
+    pub resolveProvider: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct WorkspaceSymbolRegistrationOptions {
     /// extends WorkspaceSymbolOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
 
     /// extends WorkspaceSymbolOptions
     /**
@@ -8730,7 +8730,7 @@ pub struct WorkspaceSymbolRegistrationOptions {
      *
      * @since 3.17.0
      */
-    resolveProvider: Option<Boolean>,
+    pub resolveProvider: Option<Boolean>,
 }
 
 /**
@@ -8742,26 +8742,26 @@ pub struct WorkspaceSymbolParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
 
     /// extends PartialResultParams
     /**
      * An optional token that a server can use to report partial results (e.g.
      * streaming) to the client.
      */
-    partialResultToken: Option<ProgressToken>,
+    pub partialResultToken: Option<ProgressToken>,
 
     /**
      * A query String to filter symbols by. Clients may send an empty
      * String here to request all symbols.
      */
-    query: String,
+    pub query: String,
 }
 
 /// extracted from [WorkspaceSymbol::location]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct DocumentUriObject {
-    uri: DocumentUri,
+    pub uri: DocumentUri,
 }
 
 /// extracted from [WorkspaceSymbol::location]
@@ -8782,17 +8782,17 @@ pub struct WorkspaceSymbol {
     /**
      * The name of this symbol.
      */
-    name: String,
+    pub name: String,
 
     /**
      * The kind of this symbol.
      */
-    kind: SymbolKind,
+    pub kind: SymbolKind,
 
     /**
      * Tags for this completion item.
      */
-    tags: Option<Vec<SymbolTag>>,
+    pub tags: Option<Vec<SymbolTag>>,
 
     /**
      * The name of the symbol containing this symbol. This information is for
@@ -8800,7 +8800,7 @@ pub struct WorkspaceSymbol {
      * if necessary). It can't be used to re-infer a hierarchy for the document
      * symbols.
      */
-    containerName: Option<String>,
+    pub containerName: Option<String>,
 
     /**
      * The location of this symbol. Whether a server is allowed to
@@ -8809,18 +8809,18 @@ pub struct WorkspaceSymbol {
      *
      * See also `SymbolInformation.location`.
      */
-    location: WorkspaceSymbolLocation,
+    pub location: WorkspaceSymbolLocation,
 
     /**
      * A data entry field that is preserved on a workspace symbol between a
      * workspace symbol request and a workspace symbol resolve request.
      */
-    data: Option<LSPAny>,
+    pub data: Option<LSPAny>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ConfigurationParams {
-    items: Vec<ConfigurationItem>,
+    pub items: Vec<ConfigurationItem>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8828,12 +8828,12 @@ pub struct ConfigurationItem {
     /**
      * The scope to get the configuration section for.
      */
-    scopeUri: Option<URI>,
+    pub scopeUri: Option<URI>,
 
     /**
      * The configuration section asked for.
      */
-    section: Option<String>,
+    pub section: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8843,7 +8843,7 @@ pub struct DidChangeConfigurationClientCapabilities {
      *
      * @since 3.6.0 to support the new pull model.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8851,7 +8851,7 @@ pub struct DidChangeConfigurationParams {
     /**
      * The actual changed settings
      */
-    settings: LSPAny,
+    pub settings: LSPAny,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8864,7 +8864,7 @@ pub struct WorkspaceFoldersServerCapabilities {
     /**
      * The server has support for workspace folders
      */
-    supported: Option<Boolean>,
+    pub supported: Option<Boolean>,
 
     /**
      * Whether the server wants to receive workspace folder
@@ -8875,7 +8875,7 @@ pub struct WorkspaceFoldersServerCapabilities {
      * side. The ID can be used to unregister for these events
      * using the `client/unregisterCapability` request.
      */
-    changeNotifications: Option<ChangeNotifications>,
+    pub changeNotifications: Option<ChangeNotifications>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8883,13 +8883,13 @@ pub struct WorkspaceFolder {
     /**
      * The associated URI for this workspace folder.
      */
-    uri: URI,
+    pub uri: URI,
 
     /**
      * The name of the workspace folder. Used to refer to this
      * workspace folder in the user interface.
      */
-    name: String,
+    pub name: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -8897,7 +8897,7 @@ pub struct DidChangeWorkspaceFoldersParams {
     /**
      * The actual workspace folder change event.
      */
-    event: WorkspaceFoldersChangeEvent,
+    pub event: WorkspaceFoldersChangeEvent,
 }
 
 /**
@@ -8908,12 +8908,12 @@ pub struct WorkspaceFoldersChangeEvent {
     /**
      * The array of added workspace folders
      */
-    added: Vec<WorkspaceFolder>,
+    pub added: Vec<WorkspaceFolder>,
 
     /**
      * The array of the removed workspace folders
      */
-    removed: Vec<WorkspaceFolder>,
+    pub removed: Vec<WorkspaceFolder>,
 }
 
 /**
@@ -8926,7 +8926,7 @@ pub struct FileOperationRegistrationOptions {
     /**
      * The actual filters.
      */
-    filters: Vec<FileOperationFilter>,
+    pub filters: Vec<FileOperationFilter>,
 }
 
 /**
@@ -8960,7 +8960,7 @@ pub struct FileOperationPatternOptions {
     /**
      * The pattern should be matched ignoring casing.
      */
-    ignoreCase: Option<Boolean>,
+    pub ignoreCase: Option<Boolean>,
 }
 
 /**
@@ -8984,19 +8984,19 @@ pub struct FileOperationPattern {
      *   (e.g., `example.[!0-9]` to match on `example.a`, `example.b`, but
      *   not `example.0`)
      */
-    glob: String,
+    pub glob: String,
 
     /**
      * Whether to match files or folders with this pattern.
      *
      * Matches both if undefined.
      */
-    matches: Option<FileOperationPatternKind>,
+    pub matches: Option<FileOperationPatternKind>,
 
     /**
      * Additional options used during matching.
      */
-    options: Option<FileOperationPatternOptions>,
+    pub options: Option<FileOperationPatternOptions>,
 }
 
 /**
@@ -9010,12 +9010,12 @@ pub struct FileOperationFilter {
     /**
      * A Uri like `file` or `untitled`.
      */
-    scheme: Option<String>,
+    pub scheme: Option<String>,
 
     /**
      * The actual file operation pattern.
      */
-    pattern: FileOperationPattern,
+    pub pattern: FileOperationPattern,
 }
 
 /**
@@ -9029,7 +9029,7 @@ pub struct CreateFilesParams {
     /**
      * An array of all files/folders created in this operation.
      */
-    files: Vec<FileCreate>,
+    pub files: Vec<FileCreate>,
 }
 
 /**
@@ -9042,7 +9042,7 @@ pub struct FileCreate {
     /**
      * A file:// URI for the location of the file/folder being created.
      */
-    uri: String,
+    pub uri: String,
 }
 
 /**
@@ -9057,7 +9057,7 @@ pub struct RenameFilesParams {
      * An array of all files/folders renamed in this operation. When a folder
      * is renamed, only the folder will be included, and not its children.
      */
-    files: Vec<FileRename>,
+    pub files: Vec<FileRename>,
 }
 
 /**
@@ -9070,12 +9070,12 @@ pub struct FileRename {
     /**
      * A file:// URI for the original location of the file/folder being renamed.
      */
-    oldUri: String,
+    pub oldUri: String,
 
     /**
      * A file:// URI for the new location of the file/folder being renamed.
      */
-    newUri: String,
+    pub newUri: String,
 }
 
 /**
@@ -9089,7 +9089,7 @@ pub struct DeleteFilesParams {
     /**
      * An array of all files/folders deleted in this operation.
      */
-    files: Vec<FileDelete>,
+    pub files: Vec<FileDelete>,
 }
 
 /**
@@ -9102,7 +9102,7 @@ pub struct FileDelete {
     /**
      * A file:// URI for the location of the file/folder being deleted.
      */
-    uri: String,
+    pub uri: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -9112,7 +9112,7 @@ pub struct DidChangeWatchedFilesClientCapabilities {
      * Please note that the current protocol doesn't support static
      * configuration for file changes from the server side.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 
     /**
      * Whether the client has support for relative patterns
@@ -9120,7 +9120,7 @@ pub struct DidChangeWatchedFilesClientCapabilities {
      *
      * @since 3.17.0
      */
-    relativePatternSupport: Option<Boolean>,
+    pub relativePatternSupport: Option<Boolean>,
 }
 
 /**
@@ -9131,7 +9131,7 @@ pub struct DidChangeWatchedFilesRegistrationOptions {
     /**
      * The watchers to register.
      */
-    watchers: Vec<FileSystemWatcher>,
+    pub watchers: Vec<FileSystemWatcher>,
 }
 
 /**
@@ -9172,12 +9172,12 @@ pub struct RelativePattern {
      * A workspace folder or a base URI to which this pattern will be matched
      * against relatively.
      */
-    baseUri: RelativePatternBaseURI,
+    pub baseUri: RelativePatternBaseURI,
 
     /**
      * The actual glob pattern,
      */
-    pattern: Pattern,
+    pub pattern: Pattern,
 }
 
 /**
@@ -9201,14 +9201,14 @@ pub struct FileSystemWatcher {
      *
      * @since 3.17.0 support for relative patterns.
      */
-    globPattern: GlobPattern,
+    pub globPattern: GlobPattern,
 
     /**
      * The kind of events of interest. If omitted it defaults
      * to WatchKind.Create | WatchKind.Change | WatchKind.Delete
      * which is 7.
      */
-    kind: Option<WatchKind>,
+    pub kind: Option<WatchKind>,
 }
 
 #[derive(Serialize_repr, Deserialize_repr, Debug)]
@@ -9235,7 +9235,7 @@ pub struct DidChangeWatchedFilesParams {
     /**
      * The actual file events.
      */
-    changes: Vec<FileEvent>,
+    pub changes: Vec<FileEvent>,
 }
 
 /**
@@ -9246,11 +9246,11 @@ pub struct FileEvent {
     /**
      * The file's URI.
      */
-    uri: DocumentUri,
+    pub uri: DocumentUri,
     /**
      * The change type.
      */
-    r#type: FileChangeType,
+    pub r#type: FileChangeType,
 }
 
 /**
@@ -9278,17 +9278,17 @@ pub struct ExecuteCommandClientCapabilities {
     /**
      * Execute command supports dynamic registration.
      */
-    dynamicRegistration: Option<Boolean>,
+    pub dynamicRegistration: Option<Boolean>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ExecuteCommandOptions {
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
     /**
      * The commands to be executed on the server
      */
-    commands: Vec<String>,
+    pub commands: Vec<String>,
 }
 
 /**
@@ -9298,12 +9298,12 @@ pub struct ExecuteCommandOptions {
 pub struct ExecuteCommandRegistrationOptions {
     /// extends extends ExecuteCommandOptions
     /// extends WorkDoneProgressOptions
-    workDoneProgress: Option<Boolean>,
+    pub workDoneProgress: Option<Boolean>,
     /// extends extends ExecuteCommandOptions
     /**
      * The commands to be executed on the server
      */
-    commands: Vec<String>,
+    pub commands: Vec<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -9312,15 +9312,15 @@ pub struct ExecuteCommandParams {
     /**
      * An optional token that a server can use to report work done progress.
      */
-    workDoneToken: Option<ProgressToken>,
+    pub workDoneToken: Option<ProgressToken>,
     /**
      * The identifier of the actual command handler.
      */
-    command: String,
+    pub command: String,
     /**
      * Arguments that the command should be invoked with.
      */
-    arguments: Option<Vec<LSPAny>>,
+    pub arguments: Option<Vec<LSPAny>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -9330,12 +9330,12 @@ pub struct ApplyWorkspaceEditParams {
      * presented in the user struct for example on an undo
      * stack to undo the workspace edit.
      */
-    label: Option<String>,
+    pub label: Option<String>,
 
     /**
      * The edits to apply.
      */
-    edit: WorkspaceEdit,
+    pub edit: WorkspaceEdit,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -9343,14 +9343,14 @@ pub struct ApplyWorkspaceEditResult {
     /**
      * Indicates whether the edit was applied or not.
      */
-    applied: Boolean,
+    pub applied: Boolean,
 
     /**
      * An optional textual description for why the edit was not applied.
      * This may be used by the server for diagnostic logging or to provide
      * a suitable error for a request that triggered the edit.
      */
-    failureReason: Option<String>,
+    pub failureReason: Option<String>,
 
     /**
      * Depending on the client's failure handling strategy `failedChange`
@@ -9358,7 +9358,7 @@ pub struct ApplyWorkspaceEditResult {
      * only available if the client signals a `failureHandling` strategy
      * in its client capabilities.
      */
-    failedChange: Option<UInteger>,
+    pub failedChange: Option<UInteger>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -9366,12 +9366,12 @@ pub struct ShowMessageParams {
     /**
      * The message type. See {@link MessageType}.
      */
-    r#type: MessageType,
+    pub r#type: MessageType,
 
     /**
      * The actual message.
      */
-    message: String,
+    pub message: String,
 }
 
 #[derive(Serialize_repr, Deserialize_repr, Debug)]
@@ -9410,7 +9410,7 @@ pub struct ShowMessageRequestClientCapabilitiesMessageActionItem {
      * are preserved and sent back to the server in the
      * request's response.
      */
-    additionalPropertiesSupport: Option<Boolean>,
+    pub additionalPropertiesSupport: Option<Boolean>,
 }
 
 /**
@@ -9421,7 +9421,7 @@ pub struct ShowMessageRequestClientCapabilities {
     /**
      * Capabilities specific to the `MessageActionItem` type.
      */
-    messageActionItem: Option<ShowMessageRequestClientCapabilitiesMessageActionItem>,
+    pub messageActionItem: Option<ShowMessageRequestClientCapabilitiesMessageActionItem>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -9429,17 +9429,17 @@ pub struct ShowMessageRequestParams {
     /**
      * The message type. See {@link MessageType}
      */
-    r#type: MessageType,
+    pub r#type: MessageType,
 
     /**
      * The actual message
      */
-    message: String,
+    pub message: String,
 
     /**
      * The message action items to present.
      */
-    actions: Option<Vec<MessageActionItem>>,
+    pub actions: Option<Vec<MessageActionItem>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -9447,7 +9447,7 @@ pub struct MessageActionItem {
     /**
      * A short title like 'Retry', 'Open Log' etc.
      */
-    title: String,
+    pub title: String,
 }
 
 /**
@@ -9461,7 +9461,7 @@ pub struct ShowDocumentClientCapabilities {
      * The client has support for the show document
      * request.
      */
-    support: Boolean,
+    pub support: Boolean,
 }
 
 /**
@@ -9474,14 +9474,14 @@ pub struct ShowDocumentParams {
     /**
      * The uri to show.
      */
-    uri: URI,
+    pub uri: URI,
 
     /**
      * Indicates to show the resource in an external program.
      * To show, for example, `https://code.visualstudio.com/`
      * in the default WEB browser set `external` to `true`.
      */
-    external: Option<Boolean>,
+    pub external: Option<Boolean>,
 
     /**
      * An optional property to indicate whether the editor
@@ -9489,7 +9489,7 @@ pub struct ShowDocumentParams {
      * Clients might ignore this property if an external
      * program is started.
      */
-    takeFocus: Option<Boolean>,
+    pub takeFocus: Option<Boolean>,
 
     /**
      * An optional selection range if the document is a text
@@ -9497,7 +9497,7 @@ pub struct ShowDocumentParams {
      * external program is started or the file is not a text
      * file.
      */
-    selection: Option<Range>,
+    pub selection: Option<Range>,
 }
 
 /**
@@ -9510,7 +9510,7 @@ pub struct ShowDocumentResult {
     /**
      * A Boolean indicating if the show was successful.
      */
-    success: Boolean,
+    pub success: Boolean,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -9518,12 +9518,12 @@ pub struct LogMessageParams {
     /**
      * The message type. See {@link MessageType}
      */
-    r#type: MessageType,
+    pub r#type: MessageType,
 
     /**
      * The actual message
      */
-    message: String,
+    pub message: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -9531,7 +9531,7 @@ pub struct WorkDoneProgressCreateParams {
     /**
      * The token to be used to report progress.
      */
-    token: ProgressToken,
+    pub token: ProgressToken,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -9539,5 +9539,5 @@ pub struct WorkDoneProgressCancelParams {
     /**
      * The token to be used to report progress.
      */
-    token: ProgressToken,
+    pub token: ProgressToken,
 }
